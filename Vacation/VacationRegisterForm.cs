@@ -15,7 +15,7 @@ namespace Vacation
 {
     public partial class VacationRegisterForm : MaterialForm
     {
-        //GBSJPickUpTool.DBControllerSet.BaseInformationDBController dBController = new GBSJPickUpTool.DBControllerSet.BaseInformationDBController();
+        ///GBSJPickUpTool.DBControllerSet.BaseInformationDBController dBController = new GBSJPickUpTool.DBControllerSet.BaseInformationDBController();
         public VacationRegisterForm()
         {
             InitializeComponent();

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -138,7 +139,7 @@ namespace GBSJPickUpTool
                 while (tableReader.Read() && person_num < person_sum)
                 {
                     string IDnum = tableReader.GetValue(0).ToString();
-                    string Name = tableReader.GetValue(2).ToString();
+                    string Name = Regex.Replace(tableReader.GetValue(2).ToString(), @"\s", "");
                     string Department = tableReader.GetValue(3).ToString();
                     string Post = tableReader.GetValue(4).ToString();
                     string Sex = (tableReader.GetValue(7).ToString() == "1" ? "男" : "女");
@@ -169,8 +170,8 @@ namespace GBSJPickUpTool
                 while (potableReader.Read())
                 {
                     string IDnum = potableReader.GetValue(0).ToString();
-                    string Name = potableReader.GetValue(1).ToString();
-                    string PoName = potableReader.GetValue(2).ToString();
+                    string Name = Regex.Replace(potableReader.GetValue(1).ToString(), @"\s", "");
+                    string PoName = Regex.Replace(potableReader.GetValue(2).ToString(), @"\s", "");
                     string PoHomeland = GetStandardCity(potableReader.GetValue(8).ToString());
                     if (PoHomeland == "ERR")
                     {
