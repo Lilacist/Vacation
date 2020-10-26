@@ -191,6 +191,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GBSJPickUpTool\GBSJPickUpTool.csproj">
+      <Project>{29c5788f-994b-4f5d-a16f-f3ea33118528}</Project>
+      <Name>GBSJPickUpTool</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SQK_Ui\SQK_Ui.csproj">
       <Project>{1a041034-ec68-400f-bf9c-f1fd1358ef91}</Project>
       <Name>SQK_Ui</Name>

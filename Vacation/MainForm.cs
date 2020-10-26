@@ -194,7 +194,18 @@ namespace Vacation
                 {
                     destDirectory.Create();
                 }
-                File.Copy(BaseDBPath, destDirectory.FullName + @"\" + fileName, true);
+                string destPathname = destDirectory.FullName + @"\" + fileName;
+                if (File.Exists(destPathname))
+                {
+                    if (MessageBox.Show("将会覆盖原本的文件", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        File.Copy(BaseDBPath, destPathname, true);
+                    }
+                    else
+                    {
+                        MessageBox.Show("拷贝已取消！"); return;
+                    }
+                }
                 MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -231,7 +242,18 @@ namespace Vacation
                 {
                     destDirectory.Create();
                 }
-                File.Copy(BaseDBPath, destDirectory.FullName + @"\" + fileName, true);
+                string destPathname = destDirectory.FullName + @"\" + fileName;
+                if (File.Exists(destPathname))
+                {
+                    if (MessageBox.Show("将会覆盖原本的文件", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        File.Copy(BaseDBPath, destPathname, true);
+                    }
+                    else
+                    {
+                        MessageBox.Show("拷贝已取消！"); return;
+                    }
+                }
                 MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -268,7 +290,18 @@ namespace Vacation
                 {
                     destDirectory.Create();
                 }
-                File.Copy(BaseDBPath, destDirectory.FullName + @"\" + fileName, true);
+                string destPathname = destDirectory.FullName + @"\" + fileName;
+                if (File.Exists(destPathname))
+                {
+                    if (MessageBox.Show("将会覆盖原本的文件", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                    {
+                        File.Copy(BaseDBPath, destPathname, true);
+                    }
+                    else
+                    {
+                        MessageBox.Show("拷贝已取消！"); return;
+                    }
+                }
                 MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }

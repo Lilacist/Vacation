@@ -10,10 +10,12 @@ using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
 
+
 namespace Vacation
 {
     public partial class VacationRegisterForm : MaterialForm
     {
+        //GBSJPickUpTool.DBControllerSet.BaseInformationDBController dBController = new GBSJPickUpTool.DBControllerSet.BaseInformationDBController();
         public VacationRegisterForm()
         {
             InitializeComponent();
