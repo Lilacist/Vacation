@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace GBSJPickUpTool
                 arr[res, 8] = pohome;
             }
         }
+        
         private void SetProgressBar(int value)
         {
             Control.CheckForIllegalCrossThreadCalls = false;

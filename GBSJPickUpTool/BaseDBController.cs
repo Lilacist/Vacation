@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
+using SQLite.Designer;
 using System.Data.SQLite;
-using System.Threading;
 
 namespace DistanceUpdateTool
 {
