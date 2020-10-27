@@ -51,6 +51,11 @@ namespace DistanceUpdateTool
                 BaseExecuteWithoutReturnValue(sql);
                 return;
             }
+            private void AllReturnDataTable(ref DataTable table)
+            {
+                string sql = "SELECT * FROM DISTANCE";
+                BaseExecuteWithRefTable(sql, ref table);
+            }
             #endregion
             #region 公有接口
             public bool NewDis(string start, string stop, string dis)
@@ -58,6 +63,10 @@ namespace DistanceUpdateTool
                 if (DbIfExist(start, stop)) { return true; }
                 DbNewDis(start, stop, dis);
                 return true;
+            }
+            public void GetTableAll(ref DataTable table)
+            {
+                AllReturnDataTable(ref table);
             }
             public bool Clear()
             {
@@ -83,6 +92,7 @@ namespace DistanceUpdateTool
                 if (!DbIfExist(start, stop)) return "数据不存在！";
                 else return DbGetDis(start, stop);
             }
+            
             #endregion
         }
     }

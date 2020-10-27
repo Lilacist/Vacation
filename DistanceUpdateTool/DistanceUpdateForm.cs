@@ -1,6 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -298,6 +299,8 @@ namespace DistanceUpdateTool
             {
                 try
                 {
+                    int snum = 0;
+                    int sum_db = Convert.ToInt32(Math.Sqrt(distanceclr.Getsum()));
                     Control.CheckForIllegalCrossThreadCalls = false;
                     SetTextBox("正在试图连接地图更新服务器......\r\n");
                     ThreadPool.SetMinThreads(50, 50);
@@ -335,36 +338,35 @@ namespace DistanceUpdateTool
                     countdown.WaitAll();
                     SetTextBox("坐标更新完毕......\r\n");
                     SetProgressBar(10);
-                    int sig_eq = (eq * (eq - 1)) / 2;
                     SetTextBox("准备更新距离数据......\r\n");
                     SetTextBox("共有" + eq + "个地区需要更新......\r\n");
-                    SetTextBox("共需要更新" + sig_eq + "条数据......\r\n");
                     DistanceArray = new int[eq, eq];
                     DistanceArray.Initialize();
                     SetTextBox("正在整理数据库，请稍候......\r\n");
-                    for (int i = 0; i < eq; i++)
+                    DataTable table = new DataTable();
+                    distanceclr.GetTableAll(ref table);
+                    int toupdate = ((eq * (eq - 1)) / 2) - ((sum_db * (sum_db - 1)) / 2);
+                    SetTextBox("数据库提取完毕......\r\n");
+                    for (int i = 0; i < sum_db; i++)
                     {
+                        DistanceArray[i, i] = 1;
                         SetProgressBar(10 + ((i * 10) / eq));
                         for (int j = 0; j < i; j++)
                         {
-                            if (distanceclr.IfExist(DataBase_city[i], DataBase_city[j]))
-                            {
-                                DistanceArray[j, i] = DistanceArray[i, j] = Convert.ToInt32(distanceclr.GetDis(DataBase_city[i], DataBase_city[j]));
-                                sig_eq--;
-                            }
+                            DistanceArray[j, i] = DistanceArray[i, j] = Convert.ToInt32(table.Rows[snum][2]);
+                            snum++;
                         }
                     }
                     SetProgressBar(20);
-                    SetTextBox("共需要从网络更新" + sig_eq + "条数据......\r\n");
-                    if (sig_eq == 0) goto LISPO;
-                    countdown = new MutipleThreadResetEvent(sig_eq);
-                    for (int i = 0; i < eq; i++)
+                    SetTextBox("共需要从网络更新" + toupdate + "条数据......\r\n");
+                    if (toupdate <= 0||eq<=sum_db) goto LISPO;
+                    countdown = new MutipleThreadResetEvent(toupdate);
+                    for (int i = sum_db; i < eq; i++)
                     {
-                        SetProgressBar(20 + ((i * 20) / eq));
                         DistanceArray[i, i] = 1;
+                        SetProgressBar(20 + ((i * 20) / eq));
                         for (int j = 0; j < i; j++)
                         {
-                            if (DistanceArray[j, i] == DistanceArray[i, j] && DistanceArray[i, j] != 0) continue;
                             object[] objectArray = new object[3];
                             objectArray[0] = i;
                             objectArray[1] = j;
