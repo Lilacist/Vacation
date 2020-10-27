@@ -340,24 +340,24 @@ namespace DistanceUpdateTool
                     SetProgressBar(10);
                     SetTextBox("准备更新距离数据......\r\n");
                     SetTextBox("共有" + eq + "个地区需要更新......\r\n");
+                    SetTextBox("正在提取数据库，请稍候......\r\n");
                     DistanceArray = new int[eq, eq];
                     DistanceArray.Initialize();
-                    SetTextBox("正在整理数据库，请稍候......\r\n");
                     DataTable table = new DataTable();
                     distanceclr.GetTableAll(ref table);
                     int toupdate = ((eq * (eq - 1)) / 2) - ((sum_db * (sum_db - 1)) / 2);
                     SetTextBox("数据库提取完毕......\r\n");
-                    for (int i = 0; i < sum_db; i++)
+                    SetTextBox("正在整理数据库，请稍候......\r\n");
+                    int st, sp;
+                    while (snum < table.Columns.Count)
                     {
-                        DistanceArray[i, i] = 1;
-                        SetProgressBar(10 + ((i * 10) / eq));
-                        for (int j = 0; j < i; j++)
-                        {
-                            DistanceArray[j, i] = DistanceArray[i, j] = Convert.ToInt32(table.Rows[snum][2]);
-                            snum++;
-                        }
+                        st = Array.IndexOf(DataBase_city, table.Rows[snum][0]);
+                        sp = Array.IndexOf(DataBase_city, table.Rows[snum][1]);
+                        DistanceArray[st, sp] = DistanceArray[sp, st] = Convert.ToInt32(table.Rows[snum][2]);
+                        snum++;
                     }
                     SetProgressBar(20);
+                    SetTextBox("数据库整理完毕......\r\n");
                     SetTextBox("共需要从网络更新" + toupdate + "条数据......\r\n");
                     if (toupdate <= 0||eq<=sum_db) goto LISPO;
                     countdown = new MutipleThreadResetEvent(toupdate);
