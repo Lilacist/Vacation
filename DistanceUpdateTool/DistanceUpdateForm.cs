@@ -35,7 +35,7 @@ namespace DistanceUpdateTool
             eq = 0;
             InitializeComponent();
         }
-        public static string GetLng(string s)
+        public string GetLng(string s)
         {
             if (s == null) return ("返回数据为空！");
             int n1, n2, n3;
@@ -49,7 +49,7 @@ namespace DistanceUpdateTool
             n3 = mm.IndexOf(",", 0);
             return (mm.Substring(0, n3));
         }
-        public static string GetDis(string s)
+        public string GetDis(string s)
         {
             if (s == null) return ("返回数据为空！");
             int n1, n2;
@@ -72,7 +72,7 @@ namespace DistanceUpdateTool
             if (mm == "0") return ("返回数据出错！");
             return mmx;
         }
-        public static string GetLat(string s)
+        public string GetLat(string s)
         {
             if (s == null) return ("返回数据为空！");
             int n1, n2, n3;
@@ -87,7 +87,7 @@ namespace DistanceUpdateTool
             if (n1 == -1 || n2 == -1 || n3 == -1) return ("返回数据出错！");
             return (mm.Substring(n3, mm.Length - n3));
         }
-        public static string DoGetRequestSendData(string url)
+        public string DoGetRequestSendData(string url)
         {
             try
             {
@@ -110,12 +110,13 @@ namespace DistanceUpdateTool
                 return err.Message;
             }
         }
-        public static string DoGetPosition(string city)
+        public string DoGetPosition(string city)
         {
             return DoGetRequestSendData("https://restapi.amap.com/v3/geocode/geo?address=" + city + "&output=xml&key=7fa8d2a1b155e90cd827e02a6c67cce0");
         }
-        public static string DoGetDistance(int city1, int city2)
+        public string DoGetDistance(int city1, int city2)
         {
+            if (citys[city1].Contains("台湾省") || citys[city2].Contains("台湾省")) { return "1"; }
             string JD1 = Convert.ToString(posarr[city1].x);
             string WD1 = Convert.ToString(posarr[city1].y);
             string JD2 = Convert.ToString(posarr[city2].x);
