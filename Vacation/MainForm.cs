@@ -13,6 +13,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
+using System.IO.Compression;
 
 namespace Vacation
 {
@@ -206,7 +207,7 @@ namespace Vacation
                         MessageBox.Show("拷贝已取消！"); return;
                     }
                 }
-                MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -254,7 +255,7 @@ namespace Vacation
                         MessageBox.Show("拷贝已取消！"); return;
                     }
                 }
-                MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -302,7 +303,77 @@ namespace Vacation
                         MessageBox.Show("拷贝已取消！"); return;
                     }
                 }
-                MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            bool pass;
+            string savepath;
+            string BaseDBPath = Application.StartupPath + "\\DataBase";
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowNewFolderButton = true;
+            dialog.Description = "请选择备份导出的文件夹";
+            dialog.SelectedPath = Application.StartupPath;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                savepath = dialog.SelectedPath.ToString();
+                pass = true;
+            }
+            else
+            {
+                pass = false;
+                MessageBox.Show("没有选择文件夹", "未选择", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            if (pass)
+            {
+                string str = DateTime.Now.Ticks.ToString();
+                ZipFile.CreateFromDirectory(BaseDBPath, savepath+@"\备份"+str.Trim()+".zip");
+                MessageBox.Show("备份文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            bool pass = false;
+            string BaseDBPath = "";
+            string savepath = Application.StartupPath + "\\DataBase";
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Title = "请选择文件";
+            fileDialog.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            fileDialog.Filter = "(*.zip)|*.zip";
+            fileDialog.Multiselect = false;
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                BaseDBPath = fileDialog.FileName;
+                pass = true;
+            }
+            else
+            {
+                MessageBox.Show("没有选择文件", "未选择", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            if (pass)
+            {
+                DirectoryInfo destDirectory = new DirectoryInfo(savepath);
+                if (!File.Exists(BaseDBPath))
+                {
+                    return;
+                }
+                if (destDirectory.Exists)
+                {
+                    destDirectory.Delete(true);
+                }
+                if (MessageBox.Show("将会覆盖原本的文件", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    ZipFile.ExtractToDirectory(BaseDBPath, savepath);
+                }
+                else
+                {
+                    MessageBox.Show("还原已取消！"); return;
+                }
+                MessageBox.Show("备份已还原,记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

@@ -310,6 +310,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.materialTabSelector2 = new MaterialSkin.Controls.MaterialTabSelector();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.button17 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -802,6 +803,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.button17);
             this.tabPage6.Controls.Add(this.button16);
             this.tabPage6.Controls.Add(this.button15);
             this.tabPage6.Controls.Add(this.button22);
@@ -846,8 +848,9 @@
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(207, 65);
             this.button22.TabIndex = 12;
-            this.button22.Text = "还原数据";
+            this.button22.Text = "从备份还原数据";
             this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // button21
             // 
@@ -858,6 +861,7 @@
             this.button21.TabIndex = 11;
             this.button21.Text = "备份数据";
             this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button18
             // 
@@ -943,6 +947,16 @@
             this.progressBar1.Size = new System.Drawing.Size(1006, 50);
             this.progressBar1.TabIndex = 4;
             // 
+            // button17
+            // 
+            this.button17.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button17.Location = new System.Drawing.Point(285, 276);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(207, 65);
+            this.button17.TabIndex = 15;
+            this.button17.Text = "更新数据";
+            this.button17.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -1006,6 +1020,7 @@
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button17;
     }
 }
 
