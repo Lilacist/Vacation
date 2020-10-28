@@ -127,6 +127,21 @@ namespace DistanceUpdateTool
                 return;
             }
         }
+        protected void BaseWriteTable(string sql, DataTable table)
+        {
+            try
+            {
+                InitDB();
+                SQLiteController.ExecuteMutliQuery(sql, table);
+                CloseDB();
+                return;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+                return;
+            }
+        }
         protected bool BaseIfExist(string sql)
         {
             try

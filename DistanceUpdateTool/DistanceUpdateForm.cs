@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -274,8 +275,6 @@ namespace DistanceUpdateTool
             resetEvent.SetOne();
             return;
         }
-
-        int sum;
         private void button2_Click(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -303,8 +302,8 @@ namespace DistanceUpdateTool
                     int sum_db = Convert.ToInt32(Math.Sqrt(distanceclr.Getsum()));
                     Control.CheckForIllegalCrossThreadCalls = false;
                     SetTextBox("正在试图连接地图更新服务器......\r\n");
-                    ThreadPool.SetMinThreads(50, 50);
-                    ThreadPool.SetMaxThreads(100, 100);
+                    ThreadPool.SetMinThreads(20, 20);
+                    ThreadPool.SetMaxThreads(60, 60);
                     countdown = new MutipleThreadResetEvent(1);
                     object obj = countdown;
                     ThreadPool.QueueUserWorkItem(new WaitCallback(Pingtest), obj);
@@ -349,7 +348,7 @@ namespace DistanceUpdateTool
                     SetTextBox("数据库提取完毕......\r\n");
                     SetTextBox("正在整理数据库，请稍候......\r\n");
                     int st, sp;
-                    while (snum < table.Columns.Count)
+                    while (snum < table.Rows.Count)
                     {
                         st = Array.IndexOf(DataBase_city, table.Rows[snum][0]);
                         sp = Array.IndexOf(DataBase_city, table.Rows[snum][1]);
@@ -377,6 +376,7 @@ namespace DistanceUpdateTool
                     }
                     SetTextBox("开始更新坐标和距离数据......\r\n");
                     countdown.WaitAll();
+                    for (int i = 0; i < eq; i++) DistanceArray[i, i] = 1;
                     SetTextBox("坐标和距离数据更新完成\r\n");
                     SetProgressBar(40);
                     while (!passthrough)
@@ -406,31 +406,36 @@ namespace DistanceUpdateTool
                     citys = null;
                     SetTextBox("坐标和距离数据校验成功\r\n");
                     SetProgressBar(50);
-                    SetTextBox("开始更新本地数据库.....\r\n");
-                    distanceclr.Clear();
-                    sum = 0;
+                    SetTextBox("构造本地数据库.....\r\n");
+                    DataTable newtable = table.Clone();
+                    newtable.Clear();
+                    DataRow dataRow = table.NewRow();
                     for (int i = 0; i < eq; i++)
                     {
-                        SetProgressBar(50 + ((i * 50) / eq));
-                        distanceclr.NewDis(DataBase_city[i], DataBase_city[i], DistanceArray[i, i].ToString());
+                        dataRow[0] = DataBase_city[i];
+                        dataRow[1] = DataBase_city[i];
+                        dataRow[2] = DistanceArray[i, i];
+                        lock (newtable){newtable.Rows.Add(dataRow.ItemArray); }
                         for (int j = 0; j < i; j++)
                         {
-                            try
-                            {
-                                distanceclr.NewDis(DataBase_city[i], DataBase_city[j], DistanceArray[i, j].ToString());
-                                distanceclr.NewDis(DataBase_city[j], DataBase_city[i], DistanceArray[j, i].ToString());
-                                SetTextBox(DataBase_city[i] + "<------->" + DataBase_city[j] + " " + DistanceArray[i, j] + "已写入数据库！\r\n");
-                                sum++;
-                            }
-                            catch (Exception err)
-                            {
-                                MessageBox.Show(err.Message);
-                            }
+                            dataRow[0] = DataBase_city[i];
+                            dataRow[1] = DataBase_city[j];
+                            dataRow[2] = DistanceArray[i, j];
+                            lock (newtable) { newtable.Rows.Add(dataRow.ItemArray); }
+                            dataRow[0] = DataBase_city[j];
+                            dataRow[1] = DataBase_city[i];
+                            dataRow[2] = DistanceArray[j, i];
+                            lock (newtable) { newtable.Rows.Add(dataRow.ItemArray); }
                         }
                     }
+                    SetTextBox("构造本地数据库完成\r\n");
+                    SetTextBox("开始更新本地数据库.....\r\n");
+                    distanceclr.Clear();
+                    distanceclr.WriteTable(newtable);
+                    SetTextBox("已写入数据库！\r\n");
                 LISPO:
                     SetProgressBar(100);
-                    SetTextBox(sum.ToString() + "条数据更新完成\r\n");
+                    SetTextBox("数据更新完成\r\n");
                     button6.Enabled = button6.Visible = true;
                     button3.Enabled = false;
                     try

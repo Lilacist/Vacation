@@ -92,7 +92,11 @@ namespace DistanceUpdateTool
                 if (!DbIfExist(start, stop)) return "数据不存在！";
                 else return DbGetDis(start, stop);
             }
-            
+            public void WriteTable(DataTable table)
+            {
+                string sql = $"INSERT INTO DISTANCE (START, STOP, DIS) values(@START,@STOP,@DIS)";
+                BaseWriteTable(sql, table);
+            }
             #endregion
         }
     }
