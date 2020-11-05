@@ -298,6 +298,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.button22 = new System.Windows.Forms.Button();
@@ -310,7 +311,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.materialTabSelector2 = new MaterialSkin.Controls.MaterialTabSelector();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.button17 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -803,6 +804,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.button23);
             this.tabPage6.Controls.Add(this.button17);
             this.tabPage6.Controls.Add(this.button16);
             this.tabPage6.Controls.Add(this.button15);
@@ -821,10 +823,20 @@
             this.tabPage6.Text = "设置";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // button17
+            // 
+            this.button17.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button17.Location = new System.Drawing.Point(285, 376);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(207, 65);
+            this.button17.TabIndex = 15;
+            this.button17.Text = "更新数据";
+            this.button17.UseVisualStyleBackColor = true;
+            // 
             // button16
             // 
             this.button16.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button16.Location = new System.Drawing.Point(285, 85);
+            this.button16.Location = new System.Drawing.Point(19, 473);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(207, 65);
             this.button16.TabIndex = 14;
@@ -834,7 +846,7 @@
             // button15
             // 
             this.button15.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button15.Location = new System.Drawing.Point(285, 181);
+            this.button15.Location = new System.Drawing.Point(285, 473);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(207, 65);
             this.button15.TabIndex = 13;
@@ -844,7 +856,7 @@
             // button22
             // 
             this.button22.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button22.Location = new System.Drawing.Point(285, 472);
+            this.button22.Location = new System.Drawing.Point(285, 279);
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(207, 65);
             this.button22.TabIndex = 12;
@@ -855,7 +867,7 @@
             // button21
             // 
             this.button21.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button21.Location = new System.Drawing.Point(19, 472);
+            this.button21.Location = new System.Drawing.Point(285, 182);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(207, 65);
             this.button21.TabIndex = 11;
@@ -877,7 +889,7 @@
             // button19
             // 
             this.button19.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button19.Location = new System.Drawing.Point(19, 276);
+            this.button19.Location = new System.Drawing.Point(19, 279);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(207, 65);
             this.button19.TabIndex = 9;
@@ -888,7 +900,7 @@
             // button20
             // 
             this.button20.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button20.Location = new System.Drawing.Point(19, 181);
+            this.button20.Location = new System.Drawing.Point(19, 182);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(207, 65);
             this.button20.TabIndex = 8;
@@ -947,15 +959,16 @@
             this.progressBar1.Size = new System.Drawing.Size(1006, 50);
             this.progressBar1.TabIndex = 4;
             // 
-            // button17
+            // button23
             // 
-            this.button17.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button17.Location = new System.Drawing.Point(285, 276);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(207, 65);
-            this.button17.TabIndex = 15;
-            this.button17.Text = "更新数据";
-            this.button17.UseVisualStyleBackColor = true;
+            this.button23.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button23.Location = new System.Drawing.Point(285, 85);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(207, 65);
+            this.button23.TabIndex = 16;
+            this.button23.Text = "系统初始化";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
             // MainForm
             // 
@@ -1021,6 +1034,7 @@
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button23;
     }
 }
 

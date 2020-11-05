@@ -15,7 +15,7 @@ namespace Vacation
         static void Main()
         {
 #if DEBUG
-            if (DateTime.Now.Date.Year != 2020 || DateTime.Now.Date.Month > 10)
+            if (DateTime.Now.Date.Year != 2020 || DateTime.Now.Date.Month > 11)
             {
                 MessageBox.Show("本软件是未完成版本，功能可能不完善!\r\n请联系开发者获取完整版本！", "软件过期", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(-1);

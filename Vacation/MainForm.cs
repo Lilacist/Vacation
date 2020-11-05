@@ -93,7 +93,6 @@ namespace Vacation
                 return;
             }
         }
-
         private void button9_Click(object sender, EventArgs e)
         {
             SetProgressBar(60);
@@ -329,8 +328,8 @@ namespace Vacation
             }
             if (pass)
             {
-                string str = DateTime.Now.Ticks.ToString();
-                ZipFile.CreateFromDirectory(BaseDBPath, savepath+@"\备份"+str.Trim()+".zip");
+                string str = DateTime.Today.ToShortDateString().ToString().Trim().Replace(@"/", @"-");
+                ZipFile.CreateFromDirectory(BaseDBPath, savepath+@"\休假系统备份"+str+".sbak");
                 MessageBox.Show("备份文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -343,7 +342,7 @@ namespace Vacation
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Title = "请选择文件";
             fileDialog.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            fileDialog.Filter = "(*.zip)|*.zip";
+            fileDialog.Filter = "(*.sbak)|*.sbak";
             fileDialog.Multiselect = false;
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -375,6 +374,19 @@ namespace Vacation
                 }
                 MessageBox.Show("备份已还原,记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            string savepath = Application.StartupPath + "\\DataBase";
+            DirectoryInfo destDirectory = new DirectoryInfo(savepath);
+            if (destDirectory.Exists)
+            {
+                destDirectory.Delete(true);
+            }
+            MessageBox.Show("系统初始化完成，请退出后重新打开软件，注意密码会被重置。","初始化完成",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            MessageBox.Show("注意密码会被重置为123456。", "初始化完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            Environment.Exit(0);
         }
     }
 }

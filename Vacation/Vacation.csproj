@@ -142,6 +142,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LilacSQLiteController.cs" />
+    <Compile Include="SettingDBC.cs" />
+    <Compile Include="SwitchControlForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SwitchControlForm.Designer.cs">
+      <DependentUpon>SwitchControlForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="VacationRegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +176,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SwitchControlForm.resx">
+      <DependentUpon>SwitchControlForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VacationRegisterForm.resx">
       <DependentUpon>VacationRegisterForm.cs</DependentUpon>
     </EmbeddedResource>
