@@ -37,7 +37,6 @@ namespace Vacation
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = LightColorScheme;
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
@@ -121,18 +120,15 @@ namespace Vacation
                 return;
             }
         }
-
         private void materialTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetProgressBar(0);
             GC.Collect();
         }
-
         private void button9_MouseDown(object sender, MouseEventArgs e)
         {
             SetProgressBar(50);
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             SetProgressBar(60);
@@ -161,7 +157,6 @@ namespace Vacation
                 return;
             }
         }
-
         private void button20_Click(object sender, EventArgs e)
         {
             bool pass = false;
