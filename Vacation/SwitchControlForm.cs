@@ -22,7 +22,6 @@ namespace Vacation
     /// </summary>
     public partial class SwitchControlForm : MaterialForm
     {
-
         public SwitchControlForm()
         {
             InitializeComponent();
