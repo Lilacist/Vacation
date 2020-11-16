@@ -6,11 +6,9 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 public class Cube
 {
     public int width = 0;
@@ -22,25 +20,21 @@ public class Cube
     Math3D.Camera camera1 = new Math3D.Camera();
     Math3D.Point3D cubeOrigin;
     public Point a, b, c, d;
-
     public double RotateX
     {
         get { return xRotation; }
         set { xRotation = value; }
     }
-
     public double RotateY
     {
         get { return yRotation; }
         set { yRotation = value; }
     }
-
     public double RotateZ
     {
         get { return zRotation; }
         set { zRotation = value; }
     }
-
     public Cube(int Width, int Height, int Depth)
     {
         width = Width;
@@ -48,7 +42,6 @@ public class Cube
         depth = Depth;
         cubeOrigin = new Math3D.Point3D(width / 2, height / 2, depth / 2);
     }
-
     public static Rectangle getBounds(PointF[] points)
     {
         double left = points[0].X;
@@ -68,7 +61,6 @@ public class Cube
         }
         return new Rectangle(0, 0, (int)Math.Round(right - left), (int)Math.Round(bottom - top));
     }
-
     public void calcCube(Point drawOrigin)
     {
         PointF[] point3D = new PointF[24];
@@ -97,10 +89,8 @@ public class Cube
             {
                 tmpOrigin.X = (int)((double)(cubeOrigin.X - camera1.Position.X) / (double)(cubeOrigin.Z - camera1.Position.Z) * zoom) + drawOrigin.X;
                 tmpOrigin.Y = (int)((double)-(cubeOrigin.Y - camera1.Position.Y) / (double)(cubeOrigin.Z - camera1.Position.Z) * zoom) + drawOrigin.Y;
-
                 point3D[i].X = (float)((vec.X - camera1.Position.X) / (vec.Z - camera1.Position.Z) * zoom + drawOrigin.X);
                 point3D[i].Y = (float)(-(vec.Y - camera1.Position.Y) / (vec.Z - camera1.Position.Z) * zoom + drawOrigin.Y);
-
                 point3D[i].X = (int)point3D[i].X;
                 point3D[i].Y = (int)point3D[i].Y;
             }
@@ -110,7 +100,6 @@ public class Cube
         c = Point.Round(point3D[6]);
         d = Point.Round(point3D[7]);
     }
-
     public static Math3D.Point3D[] fillCubeVertices(int width, int height, int depth)
     {
         Math3D.Point3D[] verts = new Math3D.Point3D[24];

@@ -6,14 +6,11 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
 public class UiScrollBoxMethod
 {
     public void scrollBox(Control _formobj, Point _location, Size _size, Image _backimage, BorderStyle _borderStyle, Control _obj, int _type)
@@ -66,7 +63,6 @@ public class UiScrollBoxMethod
                 break;
         }
     }
-
     private UiControlsMethod.PanelEx scrollPanelBox;
     private int ScrollBox_Height;
     private UiControlsMethod.PanelEx ScrollBox_;
@@ -78,7 +74,6 @@ public class UiScrollBoxMethod
     private int controlTop = 0;
     private Bitmap blockBmp;
     private List<UiControlsMethod.ADraggableGDIObject> m_DraggableGDIObjects;
-
     private void CoustomScroll(
         Control _formObj,
         Point _Location,
@@ -101,7 +96,6 @@ public class UiScrollBoxMethod
         ObjectControl = _Obj;
         blockBmp = new Bitmap(ScrollBox_MoveImg.Width, ScrollBox_MoveImg.Height);
         blockBmp = (Bitmap)ScrollBox_MoveImg;
-
         scrollPanelBox = new UiControlsMethod.PanelEx();
         scrollPanelBox.Location = _Location;
         scrollPanelBox.Size = _Size;
@@ -109,14 +103,12 @@ public class UiScrollBoxMethod
         scrollPanelBox.BorderStyle = borderStyle;
         if (backimage == null) scrollPanelBox.BackColor = Color.Transparent;
         else scrollPanelBox.BackgroundImage = backimage;
-
         UiControlsMethod.PanelEx placement_Panel = new UiControlsMethod.PanelEx();
         placement_Panel.BackColor = Color.Transparent;
         placement_Panel.Dock = DockStyle.Right;
         placement_Panel.Width = scrollWidth;
         placement_Panel.Location = new Point(scrollPanelBox.Location.X + scrollPanelBox.Width, scrollPanelBox.Location.Y);
         placement_Panel.Height = scrollPanelBox.Height;
-
         ScrollBox_Height = placement_Panel.Height;
         UiControlsMethod.PanelEx UpArrow = new UiControlsMethod.PanelEx();
         UpArrow.Size = UpArrowImg.Size;
@@ -130,7 +122,6 @@ public class UiScrollBoxMethod
         DownArrow.Dock = DockStyle.Bottom;
         DownArrow.Click += new EventHandler(DownArrow_Click);
         placement_Panel.Controls.Add(DownArrow);
-
         ScrollBox_ = new UiControlsMethod.PanelEx();
         ScrollBox_.Size = new Size(ScrollBox_MoveWidth, placement_Panel.Height - UpArrow.Height - DownArrow.Height);
         ScrollBox_.Location = new Point(0, UpArrow.Height);
@@ -141,7 +132,6 @@ public class UiScrollBoxMethod
         ScrollBox_.MouseDown += new MouseEventHandler(ScrollBox_MouseDown);
         ScrollBox_.MouseUp += new MouseEventHandler(ScrollBox_MouseUp);
         ScrollBox_.MouseMove += new MouseEventHandler(ScrollBox_MouseMove);
-
         placement_Panel.Controls.Add(ScrollBox_);
         m_DraggableGDIObjects = new List<UiControlsMethod.ADraggableGDIObject>();
         UiControlsMethod.Draggable draggableBlock = new UiControlsMethod.Draggable(0, 0, blockBmp);
@@ -151,16 +141,13 @@ public class UiScrollBoxMethod
         scrollPanelBox.MouseWheel += new MouseEventHandler(OnMouseWheel);
         scrollPanelBox.Controls.Add(placement_Panel);
         _formObj.Controls.Add(scrollPanelBox);
-        
         ObjectControl.Location = new Point(0, 0);
         ObjectControl.AutoSize = true;
         ObjectControl.Parent = scrollPanelBox;
         scrollPanelBox.Controls.Add(ObjectControl);
-        
         controlReflash = new Thread(_controlreflash);
         controlReflash.Start();
     }
-
     private void _controlreflash()
     {
         /*
@@ -185,7 +172,6 @@ public class UiScrollBoxMethod
             }
         }
     }
-
     private void OnMouseWheel(object sender, MouseEventArgs e)
     {
         int set_y = 0;
@@ -205,7 +191,6 @@ public class UiScrollBoxMethod
                     if (ObjectControl.Top + (ObjectControl.Height / limtY) * 10 > 0)
                     {
                         set_y = 0;
-
                         controlTop = 0;
                         _reflash = true;
                     }
@@ -247,13 +232,11 @@ public class UiScrollBoxMethod
                     set_y = limtY;
                 }
             }
-
             item.Region = new Rectangle(0, set_y, item.Region.Width, item.Region.Height);
             item.DraggingPoint = e.Location;
             ScrollBox_.Invalidate();
         }
     }
-
     private void ScrollBox_MouseDown(object sender, MouseEventArgs e)
     {
         foreach (UiControlsMethod.ADraggableGDIObject item in m_DraggableGDIObjects)
@@ -265,7 +248,6 @@ public class UiScrollBoxMethod
             }
         }
     }
-
     private void ScrollBox_MouseUp(object sender, MouseEventArgs e)
     {
         foreach (UiControlsMethod.ADraggableGDIObject item in m_DraggableGDIObjects)
@@ -298,7 +280,6 @@ public class UiScrollBoxMethod
             }
         }
     }
-
     private void ScrollBox_MouseMove(object sender, MouseEventArgs e)
     {
         int set_y = 0;
@@ -338,7 +319,6 @@ public class UiScrollBoxMethod
             }
         }
     }
-
     private void ScrollBox_Paint(object sender, PaintEventArgs e)
     {
         foreach (UiControlsMethod.ADraggableGDIObject item in m_DraggableGDIObjects)
@@ -346,7 +326,6 @@ public class UiScrollBoxMethod
             item.OnPaint(e);
         }
     }
-
     private void UpArrow_Click(object sender, EventArgs e)
     {
         int set_y = 0;
@@ -364,7 +343,6 @@ public class UiScrollBoxMethod
                 if (ObjectControl.Top + (ObjectControl.Height / limtY) * 10 > 0)
                 {
                     set_y = 0;
-
                     controlTop = 0;
                     _reflash = true;
                 }
@@ -384,7 +362,6 @@ public class UiScrollBoxMethod
             ScrollBox_.Invalidate();
         }
     }
-
     private void DownArrow_Click(object sender, EventArgs e)
     {
         int set_y = 0;

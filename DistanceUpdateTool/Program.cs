@@ -15,7 +15,6 @@ using System.Threading;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Security.Permissions;
-
 namespace DistanceUpdateTool
 {
     public class Program

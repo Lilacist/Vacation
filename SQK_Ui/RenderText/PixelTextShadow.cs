@@ -6,18 +6,15 @@
           QQ：2452243110
 最后更新：2018.1.2
 -----------------------------------------------*/
-
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
 public class PixelTextShadow
 {
     private int radius = 5;
     private int distance = 10;
     private double angle = 60;
     private byte alpha = 192;
-
     private int[] gaussMatrix;
     private int nuclear = 0;
     public int Radius
@@ -35,7 +32,6 @@ public class PixelTextShadow
             }
         }
     }
-
     public int Distance
     {
         get
@@ -47,7 +43,6 @@ public class PixelTextShadow
             distance = value;
         }
     }
-
     public double Angle
     {
         get
@@ -59,7 +54,6 @@ public class PixelTextShadow
             angle = value;
         }
     }
-
     public byte Alpha
     {
         get
@@ -68,7 +62,6 @@ public class PixelTextShadow
         }
         set
         {
-
             alpha = value;
         }
     }
@@ -92,12 +85,10 @@ public class PixelTextShadow
             int mOffset = dest.Stride - matrixSize * 4;
             int rOffset = radius * 8;
             int count = matrixSize * matrixSize;
-
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-
                     byte* s = ps - mOffset;
                     int v = 0;
                     for (int i = 0; i < count; i++, s += 4)
@@ -121,7 +112,6 @@ public class PixelTextShadow
             tmp.Dispose();
         }
     }
-
     protected virtual void MakeGaussMatrix()
     {
         double Q = (double)radius / 2.0;
@@ -131,7 +121,6 @@ public class PixelTextShadow
         int index = 0;
         nuclear = 0;
         gaussMatrix = new int[n * n];
-
         for (int x = -radius; x <= radius; x++)
         {
             for (int y = -radius; y <= radius; y++)
@@ -143,11 +132,9 @@ public class PixelTextShadow
             }
         }
     }
-
     public PixelTextShadow()
     {
     }
-
     public void Draw(Graphics g, string text, Font font, RectangleF layoutRect, StringFormat format)
     {
         RectangleF sr = new RectangleF((float)(radius * 2), (float)(radius * 2), layoutRect.Width, layoutRect.Height);
@@ -173,18 +160,15 @@ public class PixelTextShadow
             bmp.Dispose();
         }
     }
-
     public void Draw(Graphics g, string text, Font font, RectangleF layoutRect)
     {
         Draw(g, text, font, layoutRect, null);
     }
-
     public void Draw(Graphics g, string text, Font font, PointF origin, StringFormat format)
     {
         RectangleF rect = new RectangleF(origin, g.MeasureString(text, font, origin, format));
         Draw(g, text, font, rect, format);
     }
-
     public void Draw(Graphics g, string text, Font font, PointF origin)
     {
         Draw(g, text, font, origin, null);

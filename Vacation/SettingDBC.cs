@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Vacation
 {
     partial class DBControllerSet 
@@ -24,8 +23,22 @@ namespace Vacation
                 BaseExecuteWithoutReturnValue(sql);
                 return;
             }
+            private void write(int date, int rate)
+            {
+                string sql = "INSERT INTO SETTING(DATEALARM,RATEALARM)values ('" + date + "', '" + rate + "')";
+                BaseExecuteWithoutReturnValue(sql);
+                return;
+            }
+            public void rewrite(int date, int rate)
+            {
+                DbClear();
+                write(date, rate);
+                return;
+            }
+            public bool ifsettingexist()
+            {
+                return DbIfExist();
+            }
         }
-        
     }
-    
 }

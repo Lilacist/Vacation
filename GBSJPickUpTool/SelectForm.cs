@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace GBSJPickUpTool
 {
     public partial class SelectForm : Form
@@ -19,13 +18,11 @@ namespace GBSJPickUpTool
         {
             InitializeComponent();
         }
-
         private void SelectForm_Shown(object sender, EventArgs e)
         {
             label7.Text = name;
             label6.Text = rawplace;
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox1.SelectedItem)
@@ -169,7 +166,6 @@ namespace GBSJPickUpTool
                 default: break;
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             toplace = comboBox2.Text;

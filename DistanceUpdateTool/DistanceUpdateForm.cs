@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace DistanceUpdateTool
 {
     public partial class DistanceUpdateForm : MaterialForm
@@ -157,7 +156,6 @@ namespace DistanceUpdateTool
                 try { if (this.richTextBox1 != null && this.richTextBox1.IsDisposed != true) this.richTextBox1?.AppendText(value); } catch (Exception err) { MessageBox.Show(err.Message); }
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -464,13 +462,11 @@ namespace DistanceUpdateTool
             Temp.IsBackground = true;
             Temp.Start();
         }
-
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.ScrollToCaret();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             SetTextBox("正在停止更新.....\r\n");
@@ -491,8 +487,6 @@ namespace DistanceUpdateTool
             button1.Enabled = true;
             GC.Collect();
         }
-
-
         private void button6_Click(object sender, EventArgs e)
         {
             bool pass = false;
@@ -527,7 +521,6 @@ namespace DistanceUpdateTool
             File.Copy(BaseDBPath, destDirectory.FullName + @"\" + fileName, true);
             MessageBox.Show("文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "") return;

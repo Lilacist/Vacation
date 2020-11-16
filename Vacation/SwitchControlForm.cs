@@ -14,7 +14,6 @@ using MaterialSkin.Controls;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.IO.Compression;
-
 namespace Vacation
 {
     /// <summary>

@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-
-
 namespace Vacation
 {
     public partial class VacationRegisterForm : MaterialForm
@@ -20,7 +18,6 @@ namespace Vacation
         {
             InitializeComponent();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();

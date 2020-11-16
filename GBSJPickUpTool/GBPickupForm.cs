@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace GBSJPickUpTool
 {
     public partial class GBPickupForm : MaterialForm
@@ -49,7 +48,6 @@ namespace GBSJPickUpTool
                 arr[res, 8] = pohome;
             }
         }
-        
         private void SetProgressBar(int value)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -77,7 +75,6 @@ namespace GBSJPickUpTool
         {
             this.Close();
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             OracleTest test = new OracleTest();
@@ -211,13 +208,11 @@ namespace GBSJPickUpTool
             Temp.IsBackground = true;
             Temp.Start();
         }
-
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             richTextBox1.SelectionStart = richTextBox1.TextLength;
             richTextBox1.ScrollToCaret();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             bool pass = false;

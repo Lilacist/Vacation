@@ -6,17 +6,13 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiCheckBoxMethods
 {
     public bool State;
     private Bitmap _bmpCheck, _bmpChecked;
-
     public void CheckBox (Control _obj, int _type, bool _state, Point _location, MouseEventHandler _MouseClick)
     {
         State = _state;
@@ -34,13 +30,11 @@ public class UiCheckBoxMethods
                 _bmpCheck = SQK_Ui.CheckBox.CheckResource.chk3;
                 _bmpChecked = SQK_Ui.CheckBox.CheckResource.chked3;
                 break;
-
             default:
                 _bmpCheck = SQK_Ui.CheckBox.CheckResource.chk1;
                 _bmpChecked = SQK_Ui.CheckBox.CheckResource.chked1;
                 break;
         }
-
         UiControlsMethod.PictureBoxEx check = new UiControlsMethod.PictureBoxEx();
         check.BackColor = Color.Transparent;
         check.Cursor = Cursors.Hand;
@@ -50,10 +44,8 @@ public class UiCheckBoxMethods
         else check.Image = _bmpCheck;
         check.Click += new EventHandler(_Click);
         check.MouseClick += _MouseClick;
-
         _obj.Controls.Add(check);
     }
-
     private void _Click(object sender, EventArgs e)
     {
         UiControlsMethod.PictureBoxEx pL = (UiControlsMethod.PictureBoxEx)sender;

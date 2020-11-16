@@ -6,13 +6,10 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
-
 public static class CrossThreadCall
 {
     public static void CrossThreadCalls(this Control ctl, ThreadStart del)
@@ -29,6 +26,5 @@ public static class CrossThreadCall
         {
             MessageBox.Show("CTL:"+ctl.Text+"\r\nDEL:"+del.ToString()+"\r\n"+err.Message.ToString(),"CrossThreadCall");
         }
-        
   }
 }

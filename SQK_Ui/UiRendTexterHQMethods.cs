@@ -6,23 +6,18 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-
 public class UiRenderTextHQMethods
 {
     private PrivateFontCollection privateFonts; 
     private Font font;
-
     private static Color HexColorToColor(String s)
     {
         if (s.Length != 6)
             return Color.Empty;
-
         UInt32 r, g, b;
         r = g = b = 0;
         for (Int32 i = 0; i < 6; i++)
@@ -55,22 +50,18 @@ public class UiRenderTextHQMethods
         }
         return Color.FromArgb((Byte)r, (Byte)g, (Byte)b);
     }
-
     public Bitmap TextRenderHQ(int _size, string _font, string _color, int _offset, string _str, bool _shadow)
     {
         privateFonts = new PrivateFontCollection();
         privateFonts.AddFontFile(_font);
         font = new Font(privateFonts.Families[0], _size);
-
         String s = _str;
-
         String[] rgbs = _color.Split(new Char[] { ' ', ',', ';', ':' });
         Color[] colors = new Color[rgbs.Length];
         for (Int32 i = 0; i < rgbs.Length; i++)
         {
             colors[i] = HexColorToColor(rgbs[i]);
         }
-
         Bitmap bmp = new Bitmap(10, 10, PixelFormat.Format24bppRgb);
         Graphics g = Graphics.FromImage(bmp);
         IntPtr hdc = g.GetHdc();
@@ -80,13 +71,10 @@ public class UiRenderTextHQMethods
         Int32 totalwidth = 0;
         Int32[] width = new Int32[1];
         Int32[] widths = new Int32[s.Length];
-
         Graphics gs = Graphics.FromImage(new Bitmap(1, 1));
-
         for (Int32 i = 0; i < s.Length; i++)
         {
             Gdi.GetCharWidth(hdc, s[i], s[i], width);
-
             SizeF sizeW = gs.MeasureString(s[i].ToString(), new Font(_font, _size));
             if (s[i] >= 0x4e00 && s[i] <= 0x9fbb)
             {
@@ -94,10 +82,8 @@ public class UiRenderTextHQMethods
             }
             else  widths[i] = width[0];
         }
-
         SizeF sizeF = gs.MeasureString(s, font);
         totalwidth = (int)sizeF.Width;
-
         Gdi.SelectObject(hdc, oldfont);
         g.ReleaseHdc(hdc);
         g.Dispose();
@@ -110,7 +96,6 @@ public class UiRenderTextHQMethods
         copybg.Blur(4, 4);
         Layer white = image.Layers.Add();
         white.Clear(Color.White);
-
         if (_shadow)
         {
             Layer shadow = image.Layers.Copy(copybg);
@@ -119,7 +104,6 @@ public class UiRenderTextHQMethods
             shadow.OffsetX += 4;
             shadow.OffsetY += 4;
         }
-
         Int32 offsetx = 0;
         Int32 colorindex = 0;
         Layer final = image.Layers.Add();

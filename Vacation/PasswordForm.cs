@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
-
 namespace Vacation
 {
     public partial class PasswordForm : MaterialForm
@@ -21,12 +20,10 @@ namespace Vacation
             pwdctr = new DBControllerSet.PasswordDBController();
             if (pwdctr.IfEmpty()) pwdctr.NewUser("123456", "123456");
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text == "" || textBox2.Text == "")
@@ -52,7 +49,6 @@ namespace Vacation
                 return; 
             }
         }
-
         private void PasswordForm_Shown(object sender, EventArgs e)
         {
             textBox1.Focus();

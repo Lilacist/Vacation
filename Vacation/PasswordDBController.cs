@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace Vacation
 {
     partial class DBControllerSet
@@ -37,9 +36,7 @@ namespace Vacation
                 NewUser(newusername,newpassword);
                 return;
             }
-
             #endregion
-
             #region 公有接口
             public bool ChangePassword(string newusername,string newpassword)
             {

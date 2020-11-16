@@ -6,20 +6,16 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-
 public partial class AlphaForm : Form
 {
     public Bitmap 窗体图像; /*窗体图像*/
     double _transparency;
-
     public AlphaForm()
     {
         if (!DesignMode)
@@ -46,17 +42,14 @@ public partial class AlphaForm : Form
         Load += new EventHandler(AlphaForm_Load);
         Shown += new EventHandler(AlphaForm_Shown);
     }
-   
     [DllImport("user32.dll")]
     public static extern bool GetCursorPos(out Point pt);
-
     private void AlphaForm_Load(object sender, EventArgs e)
     {
         _transparency = Opacity;
         SetOpacity(0);
         BlendedBackground = 窗体图像;
     }
-    
     private void AlphaForm_Shown(object sender, EventArgs e)
     {
         if (Animation == Animations.rotation)
@@ -85,7 +78,6 @@ public partial class AlphaForm : Form
             SetOpacity(_transparency);
         }
     }
-
     #region Properties
     public enum SizeModes
     {
@@ -93,7 +85,6 @@ public partial class AlphaForm : Form
         Stretch,
         Clip
     }
-    
     public enum Animations
     {
         None,
@@ -101,7 +92,6 @@ public partial class AlphaForm : Form
         Flip,
         rotation
     }
-    
     [Category("AlphaForm")]
     public Bitmap BlendedBackground
     {
@@ -115,14 +105,12 @@ public partial class AlphaForm : Form
             }
         }
     }
-
     [Category("AlphaForm")]
     public int AnimationSpeed
     {
         get { return m_animationspeed; }
         set { m_animationspeed = value; }
     }
-
     [Category("AlphaForm")]
     public bool DrawControlBackgrounds
     {
@@ -136,14 +124,12 @@ public partial class AlphaForm : Form
             }
         }
     }
-
     [Category("AlphaForm")]
     public bool EnhancedRendering
     {
         get { return m_enhanced; }
         set { m_enhanced = value; }
     }
-
     [Category("AlphaForm")]
     public SizeModes SizeMode
     {
@@ -154,14 +140,12 @@ public partial class AlphaForm : Form
             UpdateLayeredBackground();
         }
     }
-
     [Category("AlphaForm")]
     public Animations Animation
     {
         get { return m_Animation; }
         set { m_Animation = value; }
     }
-
     public void SetOpacity(double Opacity)
     {
         this.Opacity = Opacity;
@@ -174,7 +158,6 @@ public partial class AlphaForm : Form
                 width = m_background.Width;
                 height = m_background.Height;
             }
-
             byte _opacity = (byte)(this.Opacity * 255);
             if (m_useBackgroundEx)
             {
@@ -194,32 +177,26 @@ public partial class AlphaForm : Form
             }
         }
     }
-
     public void UpdateLayeredBackground()
     {
         updateLayeredBackground(ClientSize.Width, ClientSize.Height);
     }
-
     public void DrawControlBackground(Control ctrl, bool drawBack)
     {
         if (m_controlDict.ContainsKey(ctrl))
             m_controlDict[ctrl] = drawBack;
     }
     #endregion
-
     protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
-
         BackColor = Color.Fuchsia;
         TransparencyKey = Color.Fuchsia;
         AllowTransparency = true;
-
         Point screen = new Point(0, 0);
         screen = PointToScreen(screen);
         m_offX = screen.X - Location.X;
         m_offY = screen.Y - Location.Y;
-
         if (!DesignMode)
         {
             Point formLoc = Location;
@@ -234,16 +211,13 @@ public partial class AlphaForm : Form
             m_layeredWindowProc = Win32.SetWindowLong(m_layeredWnd.Handle, (uint)Win32.Message.GWL_WNDPROC, m_customLayeredWindowProc);
         }
     }
-
     protected override void OnClosed (EventArgs e)
     {
         m_layeredWnd.Close();
     }
-
     protected override void OnPaintBackground(PaintEventArgs e)
     {
         base.OnPaintBackground(e);
-
         if (m_background != null)
         {
             if (DesignMode)
@@ -261,7 +235,6 @@ public partial class AlphaForm : Form
                         Rectangle rect = ctrl.ClientRectangle;
                         rect.X = ctrl.Left;
                         rect.Y = ctrl.Top;
-
                         if (m_useBackgroundEx)
                             e.Graphics.DrawImage(m_backgroundFull, rect, rect, GraphicsUnit.Pixel);
                         else
@@ -271,37 +244,31 @@ public partial class AlphaForm : Form
             }
         }
     }
-
     protected override void OnControlAdded(ControlEventArgs e)
     {
         base.OnControlAdded(e);
         if (!m_controlDict.ContainsKey(e.Control))
             m_controlDict.Add(e.Control, true);
     }
-
     protected override void OnControlRemoved(ControlEventArgs e)
     {
         base.OnControlRemoved(e);
         if (m_controlDict.ContainsKey(e.Control))
             m_controlDict.Remove(e.Control);
     }
-
     private void updateLayeredBackground(int width, int height, Point pos)
     {
         updateLayeredBackground(width, height, pos, true);
     }
-
     private void updateLayeredBackground(int width, int height)
     {
         updateLayeredBackground(width, height, m_layeredWnd.LayeredPos, true);
     }
-
     private void updateLayeredBackground(int width, int height, Point pos, bool Render)
     {
         m_useBackgroundEx = false;
         if (DesignMode || m_background == null || !m_initialised)
             return;
-
         switch (m_sizeMode)
         {
             case SizeModes.Stretch:
@@ -314,7 +281,6 @@ public partial class AlphaForm : Form
                 height = m_background.Height;
                 break;
         }
-
         if ((m_renderCtrlBG || m_useBackgroundEx) && Render)
         {
             if (m_backgroundEx != null)
@@ -327,15 +293,12 @@ public partial class AlphaForm : Form
                 m_backgroundFull.Dispose();
                 m_backgroundFull = null;
             }
-
             if (m_sizeMode == SizeModes.Clip)
                 m_backgroundEx = new Bitmap(m_background);
             else
                 m_backgroundEx = new Bitmap(m_background, width, height);
-
             m_backgroundFull = new Bitmap(m_backgroundEx);
         }
-
         if (m_renderCtrlBG)
         {
             if (Render)
@@ -358,7 +321,6 @@ public partial class AlphaForm : Form
             }
             m_useBackgroundEx = true;
         }
-
         byte _opacity = (byte)(Opacity * 255);
         if (m_useBackgroundEx)
         {
@@ -377,32 +339,26 @@ public partial class AlphaForm : Form
             catch { }
         }
     }
-
     private void updateLayeredSize(int width, int height)
     {
         updateLayeredSize(width, height, false);
     }
-
     private void updateLayeredSize(int width, int height, bool forceUpdate)
     {
         if (!m_initialised)
             return;
-
         if (!forceUpdate && (width == m_layeredWnd.LayeredSize.Width && height == m_layeredWnd.LayeredSize.Height))
             return;
-
         switch (m_sizeMode)
         {
             case SizeModes.None:
                 break;
-
             case SizeModes.Stretch:
                 {
                     updateLayeredBackground(width, height);
                     Invalidate(false);
                 }
                 break;
-
             case SizeModes.Clip:
                 {
                     byte _opacity = (byte)(Opacity * 255);
@@ -424,7 +380,6 @@ public partial class AlphaForm : Form
                 break;
         }
     }
-
     private Bitmap m_background;
     private Bitmap m_backgroundEx;
     private Bitmap m_backgroundFull;
@@ -449,7 +404,6 @@ public partial class AlphaForm : Form
     private HeldButtons m_isDown;
     private delegate void delMouseEvent(MouseEventArgs e);
     private delegate void delStdEvent(EventArgs e);
-
     struct HeldButtons
     {
         public bool Left;
@@ -457,7 +411,6 @@ public partial class AlphaForm : Form
         public bool Right;
         public bool XBtn;
     };
-
     private void InitializeComponent()
     {
         this.SuspendLayout();

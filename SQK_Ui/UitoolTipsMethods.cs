@@ -6,12 +6,10 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 //using static AlphaForm;
-
 public class UitoolTipsMethods
 {
     public class toolTips
@@ -46,7 +44,6 @@ public class UitoolTipsMethods
             _animationSpeed = _animationSpeed
         });
     }
-
     private class toolTips_addImage
     {
         public string _mainName;
@@ -64,7 +61,6 @@ public class UitoolTipsMethods
         }
         );
     }
-
     private class toolTips_addString
     {
         public string _mainName;
@@ -90,7 +86,6 @@ public class UitoolTipsMethods
         }
         );
     }
-
     public static void _showToolTips(Control _obj, Point _mousePoint)
     {
         if ((_obj.Visible) && (_toolTipsList.Count > 0))
@@ -115,7 +110,6 @@ public class UitoolTipsMethods
                         _toolTipsList[i].FormTips.SizeMode = AlphaForm.SizeModes.None;
                         _toolTipsList[i].FormTips.Opacity = _toolTipsList[i]._trans;
                         _toolTipsList[i].FormTips.TopMost = true;
-
                         switch (_toolTipsList[i]._animation)
                         {
                             case 0:
@@ -133,7 +127,6 @@ public class UitoolTipsMethods
                             default:
                                 break;
                         }
-
                         switch (_toolTipsList[i]._tipsType)
                         {
                             case 1:
@@ -190,7 +183,6 @@ public class UitoolTipsMethods
                             default:
                                 break;
                         }
-
                         if (_addImgList.Count > 0)
                         {
                             for (int t = 0; t < _addImgList.Count; t++)

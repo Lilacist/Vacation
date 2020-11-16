@@ -6,12 +6,9 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiPageCodeMethod
 {
     private int count;
@@ -30,7 +27,6 @@ public class UiPageCodeMethod
     private Size size;
     private Point location;
     private Bitmap pag ,paged, pagdot;
-
     public void pageCode( Control _obj, Point _location, Size _size, Control[] _record, int _count, int _pading, int _pageing, Point _locationcode, Font _fontcode, int _type )
     {
         obj = _obj;
@@ -82,14 +78,12 @@ public class UiPageCodeMethod
         codePanel.Click += new EventHandler(codePanel_Click);
         _obj.Controls.Add(codePanel);
     }
-
     private int GetPageCount(int total, int paging)
     {
         int _page = total / paging;
         if (_page < ((double)total / (double)paging)) _page += 1;
         return _page;
     }
-
     private void showList ()
     {
         int pg_begin = (pageing - 1) * pading;
@@ -109,7 +103,6 @@ public class UiPageCodeMethod
         recPanel.Controls.Add(tmpPanel);
         obj.Controls.Add(recPanel);
     }
-
     private Bitmap showPage()
     {
         pageCount = GetPageCount(count, pading);
@@ -205,7 +198,6 @@ public class UiPageCodeMethod
         }
         return _bmp;
     }
-
     public void codePanel_MouseMove(object sender, MouseEventArgs e)
     {
         UiControlsMethod.PanelEx pL = (UiControlsMethod.PanelEx)sender;
@@ -233,7 +225,6 @@ public class UiPageCodeMethod
             fpagebtn = -1;
         }
     }
-
     public void codePanel_Click(object sender, EventArgs e)
     {
         UiControlsMethod.PanelEx pL = (UiControlsMethod.PanelEx)sender;
@@ -243,7 +234,6 @@ public class UiPageCodeMethod
             pL.BackgroundImage = showPage();
             showList();
         }
-        
     }
 }
 

@@ -6,14 +6,11 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-
 public class UiCalendarMethods
 {
     public class dayList
@@ -24,9 +21,7 @@ public class UiCalendarMethods
         public string dayStr;
         public Rectangle mouseRect;
     }
-
     private List<dayList> _dayList = new List<dayList>();
-
     private void addDay(int _day, Color _dcolor, bool _today, string _dayStr, Rectangle _rect)
     {
         _dayList.Add(new dayList
@@ -38,7 +33,6 @@ public class UiCalendarMethods
             mouseRect = _rect
         });
     }
-
     private int dy, dm, dd;
     private Bitmap _bmp = new Bitmap(245, 200);
     private int mouse_Flag;
@@ -48,12 +42,10 @@ public class UiCalendarMethods
     private double transparency;
     private bool _show = false;
     private int[,] m_set;
-
     AlphaForm calenForm;
     Bitmap bkImg;
     UiControlsMethod.PictureBoxEx pb = new UiControlsMethod.PictureBoxEx();
     Control obj;
-
     public void InitializeCalendar (Control _obj, int _timeType, string _setTime, int _dispType, Point _location, double _transparency)
     {
         _dayList.Clear();
@@ -63,14 +55,12 @@ public class UiCalendarMethods
         dispType = _dispType;
         location = _location;
         transparency = _transparency;
-
         int str_X = 0, str_Y = 0, skip_X = 0, skip_Y = 0;
         int head_X = 0, head_Y = 0;
         Size ImgSize;
         int cut_X = 0, cut_Y = 0;
         UiDrawTextMethod ud = new UiDrawTextMethod();
         Font fnt;
-
         if (_timeType == 1)
         {
             try
@@ -87,7 +77,6 @@ public class UiCalendarMethods
             dm = DateTime.Today.Month;
             dd = DateTime.Today.Day;
         }
-        
         //year before last
         int qdy = dy;
         int qdm;
@@ -98,19 +87,16 @@ public class UiCalendarMethods
         }
         else qdm = dm - 1;
         int q_mday = DateTime.DaysInMonth(qdy, qdm);
-
         //Next year
         int ndy = dy + 1;
         int ndm;
         if ((dm + 1) == 13) ndm = 1;
         else ndm = dm + 1;
-
         // now
         int t_mday = DateTime.DaysInMonth(dy, dm); 
         DateTime tmDate = new DateTime(dy, dm, 1); 
         int t_week = (int)tmDate.DayOfWeek;
         if (t_week == 0) t_week = 7;
-
         string str_YMD;
         for (int i = 0; i < t_week - 1; i++)
         {
@@ -118,7 +104,6 @@ public class UiCalendarMethods
             else str_YMD = dy + "-" + (dm - 1) + "-" + (q_mday - t_week + i + 2);
             addDay(q_mday - t_week + i + 2, Color.Gainsboro, false, str_YMD, new Rectangle(0,0,0,0));
         }
-
         for (int i = 0; i < t_mday; i++)
         {
             str_YMD = dy + "-" + dm + "-" + (i + 1);
@@ -127,14 +112,12 @@ public class UiCalendarMethods
                 addDay(i + 1, Color.Crimson, false, str_YMD, new Rectangle(0, 0, 0, 0));
             } else  addDay(i + 1, Color.Black, false, str_YMD, new Rectangle(0, 0, 0, 0));
         }
-
         for (int i = 0; i < (42 - t_week - t_mday) + 1; i++)
         {
             if (dm == 12) str_YMD = (dy + 1) + "-1-" + (i + 1);
             else str_YMD = dy + "-" + (dm + 1) + "-" + (i + 1);
             addDay(i + 1, Color.Gainsboro, false, str_YMD, new Rectangle(0, 0, 0, 0));
         }
-
         bkImg = new Bitmap(235,185);
         switch (_dispType)
         {
@@ -183,7 +166,6 @@ public class UiCalendarMethods
                 fnt = new Font("微软雅黑", 14, FontStyle.Bold);
                 m_set = new int[4, 4]{ { 8,24,5,21}, { 48,58,5,21}, { 211,221,5,21}, {246,261,5,21 } };
                 break;
-
             default:
                 _bmp = SQK_Ui.Calendar.calendarResource.cal_1;
                 bkImg = _bmp.Clone(new Rectangle(5, 5, 235, 185), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
@@ -229,7 +211,6 @@ public class UiCalendarMethods
             calenForm.Size = new Size(_bmp.Width, _bmp.Height);
             calenForm.Location = _location;
             calenForm.窗体图像 = _bmp;
-
             pb.Size = ImgSize;
             pb.Location = new Point(cut_X, cut_Y);
             pb.Image = bkImg;
@@ -237,7 +218,6 @@ public class UiCalendarMethods
             pb.MouseClick += new MouseEventHandler(_MouseClick);
             pb.MouseDown += new MouseEventHandler(_MouseDown);
             calenForm.Controls.Add(pb);
-
             calenForm.Show();
             _show = true;
         } else
@@ -246,7 +226,6 @@ public class UiCalendarMethods
             calenForm.SetOpacity(_transparency * 255);
         }
     }
-
     private void _MouseMove (object sender, MouseEventArgs e)
     {
         mouse_Flag = -1;
@@ -274,7 +253,6 @@ public class UiCalendarMethods
             mouse_Flag = -1;
         }
     }
-
     private void _MouseClick(object sender, MouseEventArgs e)
     {
         if (mouse_Flag!=-1)
@@ -319,7 +297,6 @@ public class UiCalendarMethods
             }
         }
     }
-
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
     [DllImport("user32.dll")]
@@ -335,7 +312,6 @@ public class UiCalendarMethods
             }
         }
     }
-
     public void calenFormClose ()
     {
         calenForm.SetOpacity(0);

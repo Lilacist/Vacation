@@ -6,10 +6,7 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System.Drawing;
-
 public class CutPixelAlphaImage
 {
     public Bitmap CutAlphaFormImage(int _style, int _width, int _height)
@@ -50,7 +47,6 @@ public class CutPixelAlphaImage
                 _bmp = SQK_Ui.AlphaForm.frmResource.Res7;
                 select_wh = 65;
                 break;
-
             case 60: /*droplist 60*/
                 _bmp = SQK_Ui.dropList.DropListResource.dropdown1;
                 select_wh = 10;
@@ -67,13 +63,11 @@ public class CutPixelAlphaImage
                 _bmp = SQK_Ui.dropList.DropListResource.dropdown4;
                 select_wh = 32;
                 break;
-
             /*tips 100-120 tips-structure : All image*/
             case 100:
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_5;
                 select_wh = 25;
                 break;
-
             /*tips 121-140 tips-structure : left or right ,single line*/
             case 121:
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_6;
@@ -95,7 +89,6 @@ public class CutPixelAlphaImage
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_14;
                 select_wh = 35;
                 break;
-
             /*tips 141-160 tips-structure : top or bottom ,middle */
             case 141:
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_9;
@@ -117,29 +110,22 @@ public class CutPixelAlphaImage
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_3;
                 select_wh = 6;
                 break;
-
             /*tips 161-180 tips-structure : left or right ,middle */
             case 161:
                 _bmp = SQK_Ui.Tooltips.TipsResource.tips_11;
                 select_wh = 30;
                 break;
-
-
             default:
                 break;
-
         }
-
         Bitmap bmp_form = new Bitmap(_width, _height);
         Graphics bmp_block = Graphics.FromImage(bmp_form);
-
         /*tips 121-140 tips-structure : left or right ,single line*/
         if ((_style == 121) || (_style == 122) || (_style == 123) || (_style == 124) || (_style == 125))
         {
             Bitmap sep_Left = _bmp.Clone(new Rectangle(0, 0, select_wh, _bmp.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_Right = _bmp.Clone(new Rectangle(_bmp.Width - select_wh, 0, select_wh, _bmp.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_TopFull = _bmp.Clone(new Rectangle(select_wh, 0, select_wh, _bmp.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
             int ta = (_width - select_wh * 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
@@ -153,7 +139,6 @@ public class CutPixelAlphaImage
             bmp_block.DrawImage(sep_Left, 0, 0, select_wh, _bmp.Height);
             bmp_block.DrawImage(sep_Right, _width - select_wh, 0, select_wh, _bmp.Height);
         }
-
         else /*tips 141-160 tips-structure : top or bottom ,middle */
         if ((_style == 141) || (_style == 142) || (_style == 143) || (_style == 144) || (_style == 145))
         {
@@ -167,13 +152,11 @@ public class CutPixelAlphaImage
             Bitmap sep_BottomFull = _bmp.Clone(new Rectangle(select_wh, _bmp.Height - select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_TopMiddle = _bmp.Clone(new Rectangle(_bmp.Width / 2 - select_wh / 2, 0, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_BottomMiddle = _bmp.Clone(new Rectangle(_bmp.Width / 2 - select_wh / 2, _bmp.Height - select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
             int ta = (_width / 2 - select_wh / 2 - select_wh) / select_wh;
             for (int i = 0; i < ta; i++)
             {
                 bmp_block.DrawImage(sep_TopFull, select_wh + i * select_wh, 0, select_wh, select_wh);
                 bmp_block.DrawImage(sep_BottomFull, select_wh + i * select_wh, _height - select_wh, select_wh, select_wh);
-
                 bmp_block.DrawImage(sep_TopFull, _width / 2 + select_wh / 2 + i * select_wh, 0, select_wh, select_wh);
                 bmp_block.DrawImage(sep_BottomFull, _width / 2 + select_wh / 2 + i * select_wh, _height - select_wh, select_wh, select_wh);
             }
@@ -182,21 +165,15 @@ public class CutPixelAlphaImage
             {
                 bmp_block.DrawImage(sep_TopFull, _width / 2 - select_wh / 2 - tb, 0, tb, select_wh);
                 bmp_block.DrawImage(sep_BottomFull, _width / 2 - select_wh / 2 - tb, _height - select_wh, tb, select_wh);
-
                 bmp_block.DrawImage(sep_TopFull, _width - select_wh - tb, 0, tb, select_wh);
                 bmp_block.DrawImage(sep_BottomFull, _width - select_wh - tb, _height - select_wh, tb, select_wh);
             }
-
             bmp_block.DrawImage(sep_Left, 0, 0, select_wh, select_wh);
             bmp_block.DrawImage(sep_Right, _width - select_wh, 0, select_wh, select_wh);
-
             bmp_block.DrawImage(sep_LeftBottom, 0, _height - select_wh, select_wh, select_wh);
             bmp_block.DrawImage(sep_RightBottom, _width - select_wh, _height - select_wh, select_wh, select_wh);
-
             bmp_block.DrawImage(sep_TopMiddle, _width / 2 - select_wh / 2, 0, select_wh, select_wh);
             bmp_block.DrawImage(sep_BottomMiddle, _width / 2 - select_wh / 2, _height - select_wh, select_wh, select_wh);
-
-
             ta = (_height - select_wh * 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
@@ -212,7 +189,6 @@ public class CutPixelAlphaImage
             bmp_block.FillRectangle(new SolidBrush(_bmp.GetPixel(_bmp.Width / 2, _bmp.Height / 2)),
                 select_wh, select_wh, _width - select_wh * 2, _height - select_wh * 2);
         }
-
         else /*tips 161-180 tips-structure : left or right ,middle */
         if ((_style == 161))
         {
@@ -224,10 +200,8 @@ public class CutPixelAlphaImage
             Bitmap sep_RightFull = _bmp.Clone(new Rectangle(_bmp.Width - select_wh, select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_TopFull = _bmp.Clone(new Rectangle(select_wh, 0, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_BottomFull = _bmp.Clone(new Rectangle(select_wh, _bmp.Height - select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
             Bitmap sep_LeftMiddle = _bmp.Clone(new Rectangle(0, _bmp.Height / 2 - select_wh / 2, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_RightMiddle = _bmp.Clone(new Rectangle(_bmp.Width - select_wh, _bmp.Height / 2 - select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
             int ta = (_width - select_wh * 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
@@ -244,14 +218,11 @@ public class CutPixelAlphaImage
             bmp_block.DrawImage(sep_Right, _width - select_wh, 0, select_wh, select_wh);
             bmp_block.DrawImage(sep_LeftBottom, 0, _height - select_wh, select_wh, select_wh);
             bmp_block.DrawImage(sep_RightBottom, _width - select_wh, _height - select_wh, select_wh, select_wh);
-
-
             ta = (_height / 2 - select_wh - select_wh / 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
                 bmp_block.DrawImage(sep_LeftFull, 0, select_wh + i * select_wh, select_wh, select_wh);
                 bmp_block.DrawImage(sep_RightFull, _width - select_wh, select_wh + i * select_wh, select_wh, select_wh);
-
                 bmp_block.DrawImage(sep_LeftFull, 0, (_height / 2 + select_wh / 2) + i * select_wh, select_wh, select_wh);
                 bmp_block.DrawImage(sep_RightFull, _width - select_wh, (_height / 2 + select_wh / 2) + i * select_wh, select_wh, select_wh);
             }
@@ -278,7 +249,6 @@ public class CutPixelAlphaImage
             Bitmap sep_RightFull = _bmp.Clone(new Rectangle(_bmp.Width - select_wh, select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_TopFull = _bmp.Clone(new Rectangle(select_wh, 0, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Bitmap sep_BottomFull = _bmp.Clone(new Rectangle(select_wh, _bmp.Height - select_wh, select_wh, select_wh), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
             int ta = (_width - select_wh * 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
@@ -291,19 +261,16 @@ public class CutPixelAlphaImage
                 bmp_block.DrawImage(sep_TopFull, _width - select_wh - tb, 0, tb, select_wh);
                 bmp_block.DrawImage(sep_BottomFull, _width - select_wh - tb, _height - select_wh, tb, select_wh);
             }
-
             bmp_block.DrawImage(sep_Left, 0, 0, select_wh, select_wh);
             bmp_block.DrawImage(sep_Right, _width - select_wh, 0, select_wh, select_wh);
             bmp_block.DrawImage(sep_LeftBottom, 0, _height - select_wh, select_wh, select_wh);
             bmp_block.DrawImage(sep_RightBottom, _width - select_wh, _height - select_wh, select_wh, select_wh);
-
             ta = (_height - select_wh * 2) / select_wh;
             for (int i = 0; i < ta; i++)
             {
                 bmp_block.DrawImage(sep_LeftFull, 0, select_wh + i * select_wh, select_wh, select_wh);
                 bmp_block.DrawImage(sep_RightFull, _width - select_wh, select_wh + i * select_wh, select_wh, select_wh);
             }
-
             tb = _height - select_wh * 2 - ta * select_wh;
             if (tb > 0)
             {

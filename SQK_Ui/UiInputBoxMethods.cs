@@ -6,12 +6,9 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiInputBoxMethods
 {
     private UiControlsMethod.InputBox _inBox = new UiControlsMethod.InputBox();
@@ -22,24 +19,20 @@ public class UiInputBoxMethods
     private bool multiline = false;
     private string paswordmask = "*";
     public string getPasword = "";
-
     private void getIndex()
     {
         rang = _inBox.SelectedText.Length;
         selx = _inBox.SelectionStart;
     }
-
     public string Value
     {
         get { return _inBox.Text; }
         set { _inBox.Text = value;  }
     }
-
     public void inputBox(Control _obj, Size _size, Point _location, Font _fnt, Color _fntcolor, string _text, int _type, bool _multiline, int _maxlength, Color _backcolor, int _backradius, int _opacity, bool _readOnly, MouseEventHandler _click)
     {
         inputBox(_obj, _size, _location, _fnt, _fntcolor, _text, _type, _multiline, _maxlength, _backcolor, _backradius, _opacity, "*", _readOnly, _click);
     }
-
     public void inputBox(Control _obj, Size _size, Point _location, Font _fnt, Color _fntcolor, string _text, int _type, bool _multiline, int _maxlength, Color _backcolor, int _backradius, int _opacity, string _mask, bool _readOnly, MouseEventHandler _click)
     {
         UiTransparentRectMethod boxFram = new UiTransparentRectMethod();
@@ -72,11 +65,9 @@ public class UiInputBoxMethods
         _inBox.ForeColor = _fntcolor;
         _inBox.ReadOnly = _readOnly;
         _inBox.MouseClick += _click;
-
         boxFram.Controls.Add(_inBox);
         _obj.Controls.Add(boxFram);
     }
-
     private void inBox_KeyDown(object sender, KeyEventArgs e)
     {
         getIndex();
@@ -107,7 +98,6 @@ public class UiInputBoxMethods
                 }
             }
         }
-
         if (intype == 1) //pasword mode
         {
             if ((e.KeyCode == Keys.Enter) || ((e.Control) && (e.KeyCode == Keys.V)) || ((e.Shift) && (e.KeyCode == Keys.Insert)) || ((e.Control) && (e.KeyCode == Keys.X))) //disable key
@@ -120,13 +110,11 @@ public class UiInputBoxMethods
                 {
                     if (rang == 0) pasword = pasword.Remove(selx, 1);
                     else pasword = pasword.Remove(selx, rang);
-
                     getPasword = UiControlsMethod.GetMd5Str32(pasword);
                 }
             }
         }
     }
-
     private void inBox_KeyPress(object sender, KeyPressEventArgs e)
     {
         e.Handled = true;
@@ -136,7 +124,6 @@ public class UiInputBoxMethods
             {
                 if (rang == 0) pasword = pasword.Remove(selx - 1, 1);
                 else pasword = pasword.Remove(selx, rang);
-
                 getPasword = UiControlsMethod.GetMd5Str32(pasword);
             }
         }
@@ -156,9 +143,7 @@ public class UiInputBoxMethods
                     pasword = pasword.Insert(selx, e.KeyChar.ToString());
                 }
                 else { pasword = pasword.Insert(selx, e.KeyChar.ToString()); }
-
                 getPasword = UiControlsMethod.GetMd5Str32(pasword);
-
                 string code = "";
                 for (int i = 0; i < pasword.Length; i++) code += paswordmask;
                 _inBox.Text = code;
@@ -166,12 +151,9 @@ public class UiInputBoxMethods
             }
         }
     }
-
     private void inBox_MouseUp(object sender, MouseEventArgs e)
     {
         getIndex();
     }
-
-   
 }
 

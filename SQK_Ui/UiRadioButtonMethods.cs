@@ -6,27 +6,21 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiRadioButtonMethods
 {
     public bool[] State;
-
     private UiControlsMethod.PictureBoxEx[] radio;
     private Bitmap _bmpCheck, _bmpChecked;
     private int SelectType = 0, Num = 0;
-
     public void RadioButton (Control _obj, int _selectType, int _type, int _num, bool[] _state, Point[] _location, MouseEventHandler[] _MouseClick)
     {
         SelectType = _selectType;
         Num = _num;
         State = new bool[_num];
         State = _state;
-
         switch (_type)
         {
             case 0:
@@ -52,7 +46,6 @@ public class UiRadioButtonMethods
             default:
                 break;
         }
-
         radio = new UiControlsMethod.PictureBoxEx[_num];
         for (int i=0;i<_num;i++)
         {
@@ -68,11 +61,9 @@ public class UiRadioButtonMethods
             {
                 radio[i].Image = _bmpChecked;
             } else radio[i].Image = _bmpCheck;
-
             _obj.Controls.Add(radio[i]);
         }
     }
-
     private void _Click (object sender, EventArgs e)
     {
         UiControlsMethod.PictureBoxEx pL = (UiControlsMethod.PictureBoxEx)sender;

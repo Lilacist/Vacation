@@ -6,11 +6,8 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
-
 public class FreeTransform
 {
     PointF[] vertex = new PointF[4];
@@ -19,7 +16,6 @@ public class FreeTransform
     ImageData srcCB = new ImageData();
     int srcW = 0;
     int srcH = 0;
-
     public Bitmap Bitmap
     {
         set
@@ -40,60 +36,50 @@ public class FreeTransform
             return getTransformedBitmap();
         }
     }
-
     public Point ImageLocation
     {
         set { rect.Location = value; }
         get { return rect.Location; }
     }
-
     bool isBilinear = false;
     public bool IsBilinearInterpolation
     {
         set { isBilinear = value; }
         get { return isBilinear; }
     }
-
     public int ImageWidth
     {
         get { return rect.Width; }
     }
-
     public int ImageHeight
     {
         get { return rect.Height; }
     }
-
     public PointF VertexLeftTop
     {
         set { vertex[0] = value; setVertex(); }
         get { return vertex[0]; }
     }
-
     public PointF VertexTopRight
     {
         set { vertex[1] = value; setVertex(); }
         get { return vertex[1]; }
     }
-
     public PointF VertexRightBottom
     {
         set { vertex[2] = value; setVertex(); }
         get { return vertex[2]; }
     }
-
     public PointF VertexBottomLeft
     {
         set { vertex[3] = value; setVertex(); }
         get { return vertex[3]; }
     }
-
     public PointF[] FourCorners
     {
         set { vertex = value; setVertex(); }
         get { return vertex; }
     }
-
     private void setVertex()
     {
         float xmin = float.MaxValue;
@@ -117,7 +103,6 @@ public class FreeTransform
         CD /= CD.Magnitude;
         DA /= DA.Magnitude;
     }
-
     private bool isOnPlaneABCD(PointF pt)
     {
         if ( (!Vector.IsCCW(pt, vertex[0], vertex[1])) && (!Vector.IsCCW(pt, vertex[1], vertex[2])) && (!Vector.IsCCW(pt, vertex[2], vertex[3])) && (!Vector.IsCCW(pt, vertex[3], vertex[0])) )
@@ -126,7 +111,6 @@ public class FreeTransform
         }
         return false;
     }
-
     private Bitmap getTransformedBitmap()
     {
         if (srcH == 0 || srcW == 0) return null;
@@ -139,7 +123,6 @@ public class FreeTransform
         int x1, x2, y1, y2;
         double dab, dbc, dcd, dda;
         float dx1, dx2, dy1, dy2, dx1y1, dx1y2, dx2y1, dx2y2, nbyte;
-
         int y = 0, x;
         while (++y< rect.Height)
         {
@@ -148,7 +131,6 @@ public class FreeTransform
             {
                 Point srcPt = new Point(x, y);
                 srcPt.Offset(this.rect.Location);
-
                 if (isOnPlaneABCD(srcPt))
                 {
                     dab = Math.Abs((new Vector(vertex[0], srcPt)).CrossProduct(AB));
@@ -157,10 +139,8 @@ public class FreeTransform
                     dda = Math.Abs((new Vector(vertex[3], srcPt)).CrossProduct(DA));
                     ptInPlane.X = (float)(srcW * (dda / (dda + dbc)));
                     ptInPlane.Y = (float)(srcH * (dab / (dab + dcd)));
-
                     x1 = (int)ptInPlane.X;
                     y1 = (int)ptInPlane.Y;
-
                     if (x1 >= 0 && x1 < srcW && y1 >= 0 && y1 < srcH)
                     {
                         x2 = (x1 == srcW - 1) ? x1 : x1 + 1;

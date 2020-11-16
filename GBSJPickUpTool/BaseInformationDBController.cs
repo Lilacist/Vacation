@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using SmartAssembly;
 using System.Runtime.InteropServices;
 using System.Data;
-
 namespace GBSJPickUpTool
 {
     public partial class DBControllerSet {
@@ -27,7 +26,6 @@ namespace GBSJPickUpTool
                 BaseExecuteWithoutReturnValue(sql);
                 return;
             }
-
             public void InserPersonInformation(string IDnum, string Name, string Department, string Post, string Sex, string Homeland, string ifmarried, string PoName, string PoHomeland)
             {
                 DbInserInformation(IDnum, Name, Department, Post, Sex, Homeland,ifmarried,PoName,PoHomeland);
@@ -38,5 +36,4 @@ namespace GBSJPickUpTool
             }
         }
     }
-    
 }

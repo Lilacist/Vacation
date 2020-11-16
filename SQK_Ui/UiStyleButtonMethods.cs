@@ -6,10 +6,8 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiStyleButtonMethods
 {
     public void InitializeStyleButton (
@@ -22,7 +20,6 @@ public class UiStyleButtonMethods
     {
         Bitmap _BmpBlock;
         int[] cutImg; //cut image left,middle, right width;
-
         switch (_type)
         {
             case 0:
@@ -113,7 +110,6 @@ public class UiStyleButtonMethods
                 _BmpBlock = SQK_Ui.StyleButton.StyleButtonResource.s_btn22;
                 cutImg = new int[3] { 45, 1, 12 };
                 break;
-
             default:
                 _BmpBlock = SQK_Ui.StyleButton.StyleButtonResource.s_btn1;
                 cutImg = new int[3] { 40, 1, 10 };
@@ -122,7 +118,6 @@ public class UiStyleButtonMethods
         Bitmap sep_Left = _BmpBlock.Clone(new Rectangle(0, 0, cutImg[0], _BmpBlock.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
         Bitmap sep_Middle = _BmpBlock.Clone(new Rectangle(cutImg[0], 0, cutImg[1], _BmpBlock.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
         Bitmap sep_Right = _BmpBlock.Clone(new Rectangle(_BmpBlock.Width-cutImg[2],0, cutImg[2],_BmpBlock.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
         Bitmap bmpBtn = new Bitmap(cutImg[0] + _width + cutImg[2], _BmpBlock.Height);
         Graphics btnImg = Graphics.FromImage(bmpBtn);
         btnImg.DrawImage(sep_Left, 0, 0);
@@ -131,11 +126,9 @@ public class UiStyleButtonMethods
             btnImg.DrawImage(sep_Middle, cutImg[0] + i, 0);
         }
         btnImg.DrawImage(sep_Right, cutImg[0]+_width, 0);
-
         btnImg.DrawImage(_bmp, _bmplocation);
         UiDrawTextMethod ds = new UiDrawTextMethod();
         ds.DrawString(bmpBtn,_string,fnt,_stringcolor,_stringrec);
-
         UiControlsMethod.PictureBoxEx sbtn = new UiControlsMethod.PictureBoxEx();
         sbtn.BackColor = Color.Transparent;
         sbtn.Size = new Size(cutImg[0]+_width+cutImg[2],_BmpBlock.Height);
@@ -143,6 +136,5 @@ public class UiStyleButtonMethods
         sbtn.Image = bmpBtn;
         sbtn.MouseClick += _click;
         _obj.Controls.Add(sbtn);
-
     }
 }

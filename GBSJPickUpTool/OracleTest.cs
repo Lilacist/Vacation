@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace GBSJPickUpTool
 {
     public partial class OracleTest : Form
@@ -21,12 +20,9 @@ namespace GBSJPickUpTool
         {
             InitializeComponent();
         }
-
         private void OracleTest_Load(object sender, EventArgs e)
         {
-            
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string user = textBox1.Text.ToString();
@@ -51,7 +47,6 @@ namespace GBSJPickUpTool
                 GC.Collect();
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

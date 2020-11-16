@@ -6,12 +6,10 @@
           QQ：2452243110
 最后更新：2018.1.2
 -----------------------------------------------*/
-
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-
 	public class FontAwesome
 	{
 		public class Properties
@@ -32,7 +30,6 @@ using System.Drawing.Text;
 				BorderColor = Color.Gray;
 				ShowBorder = false;
 			}
-
 			public Properties(Type type)
 			{
 				Size = Default.Size;
@@ -43,14 +40,12 @@ using System.Drawing.Text;
 				ShowBorder = Default.ShowBorder;
 				Type = type;
 			}
-
 			public static Properties Get(Type type = Type.None)
 			{
 				var props = Default;
 				props.Type = type;
 				return props;
 			}
-
 			private static Properties _default;
 			public static Properties Default
 			{
@@ -67,15 +62,11 @@ using System.Drawing.Text;
 					_default = value;
 				}
 			}
-
 		}
-
 		private PrivateFontCollection _fonts = new PrivateFontCollection();
 		private const string FONT_FILE_NAME = "fontawesome-webfont.ttf";
-
 		#region statics
 		private static FontAwesome _instance;
-
 		public static void Initialize()
 		{
 			if (_instance == null)
@@ -83,7 +74,6 @@ using System.Drawing.Text;
 				_instance = new FontAwesome();
 			}
 		}
-
 		public static FontAwesome Instance
 		{
 			get
@@ -95,18 +85,13 @@ using System.Drawing.Text;
 				return _instance;
 			}
 		}
-       
 		public static Properties DefaultProperties { get { return Properties.Default; } }
-
 		#endregion
-		
 		#region public methods
-
 		public void SetDefaultProperties(Properties props)
 		{
 			Properties.Default = props;
 		}
-
 		public Icon GetIcon(Type type, Properties props = null)
 		{
 			if (props == null)
@@ -116,13 +101,11 @@ using System.Drawing.Text;
 			props.Type = type;
 			return GetIcon(props);
 		}
-
 		public Icon GetIcon(Properties props)
 		{
 			var img = GetImage(props);
 			return Icon.FromHandle(img.GetHicon());
 		}
-
 		public Bitmap GetImage(string name, Properties props = null)
 		{
 			if (props == null)
@@ -135,7 +118,6 @@ using System.Drawing.Text;
 			}
 			return null;
 		}
-
 		public Bitmap GetImage(Type type, Properties props = null)
 		{
 			if (props == null)
@@ -145,21 +127,16 @@ using System.Drawing.Text;
 			props.Type = type;
 			return GetImage(props);
 		}
-
 		public Bitmap GetImage(Properties props)
 		{
 			return GetImageInternal(props);
 		}
-
         #endregion
-
         #region private methods
-
         private FontAwesome()
 		{
 			LoadFont();
 		}
-
 		private Bitmap GetImageInternal(Properties props)
 		{
 			var size = GetFontIconRealSize(props.Size, (int)props.Type);
@@ -178,12 +155,10 @@ using System.Drawing.Text;
 						LineAlignment = StringAlignment.Center,
 						Trimming = StringTrimming.Character
 					};
-
 					g1.DrawString(character, font, new SolidBrush(props.ForeColor), 0, 0);
 					g1.DrawImage(bmpTemp, 0, 0);
 				}
 			}
-
 			var bmp = ResizeImage(bmpTemp, props);
 			if (props.ShowBorder)
 			{
@@ -196,7 +171,6 @@ using System.Drawing.Text;
 			}
 			return bmp;
 		}
-
 		private Size GetFontIconRealSize(int size, int iconIndex)
 		{
 			var bmpTemp = new Bitmap(size, size);
@@ -214,27 +188,21 @@ using System.Drawing.Text;
 						LineAlignment = StringAlignment.Center,
 						Trimming = StringTrimming.Word
 					};
-
 					var sizeF = g1.MeasureString(character, font, new Point(0, 0), format);
 					return sizeF.ToSize();
 				}
 			}
 			return new Size(size, size);
 		}
-
 		private Bitmap ResizeImage(Bitmap imgToResize, FontAwesome.Properties props)
 		{
 			var srcWidth = imgToResize.Width;
 			var srcHeight = imgToResize.Height;
-
 			float ratio = (srcWidth > srcHeight) ? (srcWidth / (float)srcHeight) : (srcHeight / (float)srcWidth);
-
 			var dstWidth = (int)Math.Ceiling(srcWidth / ratio);
 			var dstHeight = (int)Math.Ceiling(srcHeight / ratio);
-
 			var x = (int)Math.Round((props.Size - dstWidth) / 2f, 0);
 			var y = (int)(1 + Math.Round((props.Size - dstHeight) / 2f, 0));
-
 			Bitmap b = new Bitmap(props.Size + props.Location.X, props.Size + props.Location.Y);
 			using (Graphics g = Graphics.FromImage((Image)b))
 			{
@@ -246,7 +214,6 @@ using System.Drawing.Text;
 			}
 			return b;
 		}
-
 		private void LoadFont()
 		{
             if (System.IO.File.Exists(FONT_FILE_NAME))
@@ -254,14 +221,12 @@ using System.Drawing.Text;
                 _fonts.AddFontFile(FONT_FILE_NAME);
             }
 		}
-
 		private Font GetIconFont(int pixelSize)
 		{
 			var size = pixelSize / (16f / 12f);
 			var font = new Font(_fonts.Families[0], size, FontStyle.Regular, GraphicsUnit.Point);
 			return font;
 		}
-
 		public static FontAwesome.Type ParseType(string name)
 		{
 			FontAwesome.Type retval = Type.Empty;
@@ -272,9 +237,7 @@ using System.Drawing.Text;
 			return retval;
 		}
         #endregion
-
         #region IconNames Type Enum
-
         public enum Type
 		{
 			//not part of FontAwesome, use this empty image
@@ -1857,7 +1820,6 @@ using System.Drawing.Text;
 		}
 		#endregion
 	}
-
 public static class FontAwesomeExtensions
 {
     public static Bitmap StackWith(this Bitmap backgroundImage, FontAwesome.Properties foregroundImage)
@@ -1867,7 +1829,6 @@ public static class FontAwesomeExtensions
         g.DrawImage(FontAwesome.Instance.GetImage(foregroundImage), new Point(0, 0));
         return bitmap;
     }
-
     public static Bitmap StackWith(this Bitmap backgroundImage, Bitmap foregroundImage)
     {
         var bitmap = backgroundImage;
@@ -1875,7 +1836,6 @@ public static class FontAwesomeExtensions
         g.DrawImage(foregroundImage, new Point(0, 0));
         return bitmap;
     }
-
     public static Bitmap AsImage(this FontAwesome.Type type, FontAwesome.Properties fontProperties = null)
     {
         if (fontProperties == null)
@@ -1888,12 +1848,10 @@ public static class FontAwesomeExtensions
         }
         return fontProperties.AsImage();
     }
-
     public static Bitmap AsImage(this FontAwesome.Properties fontProperties)
     {
         return FontAwesome.Instance.GetImage(fontProperties);
     }
-
     public static Icon AsIcon(this FontAwesome.Type type, FontAwesome.Properties fontProperties = null)
     {
         if (fontProperties == null)
@@ -1906,7 +1864,6 @@ public static class FontAwesomeExtensions
         }
         return fontProperties.AsIcon();
     }
-
     public static Icon AsIcon(this FontAwesome.Properties fontProperties)
     {
         return FontAwesome.Instance.GetIcon(fontProperties);

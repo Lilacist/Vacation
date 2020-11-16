@@ -6,10 +6,8 @@
           QQ：2452243110
 最后更新：2018.1.10
 -----------------------------------------------*/
-
 using System;
 using System.Runtime.InteropServices;
-
 [StructLayout(LayoutKind.Sequential)]
 struct TEXTMETRIC
 {
@@ -34,7 +32,6 @@ struct TEXTMETRIC
     public Byte tmPitchAndFamily;
     public Byte tmCharSet;
 }
-
 [StructLayout(LayoutKind.Sequential)]
 struct RECT
 {
@@ -43,11 +40,9 @@ struct RECT
     public Int32 right;
     public Int32 bottom;
 }
-
 sealed class Gdi
 {
 	public const Int32 TRANSPARENT			= 1;
-
 	public const Int32 FW_DONTCARE			= 0;
 	public const Int32 FW_THIN				= 100;
 	public const Int32 FW_EXTRALIGHT		= 200;
@@ -63,19 +58,13 @@ sealed class Gdi
 	public const Int32 FW_ULTRABOLD			= 800;
 	public const Int32 FW_HEAVY				= 900;
 	public const Int32 FW_BLACK				= 900;
-
 	public const Int32 ANSI_CHARSET			= 0;
 	public const Int32 DEFAULT_CHARSET		= 1;
 	public const Int32 SYMBOL_CHARSET		= 2;
-
 	public const Int32 OUT_DEFAULT_PRECIS	= 0;
-
 	public const Int32 CLIP_DEFAULT_PRECIS	= 0;
-
 	public const Int32 DEFAULT_QUALITY		= 0;
-
 	public const Int32 FF_DONTCARE			= (0<<4);
-
 	public const Int32 R2_BLACK				= 1;
 	public const Int32 R2_NOTMERGEPEN		= 2;
 	public const Int32 R2_MASKNOTPEN		= 3;
@@ -93,7 +82,6 @@ sealed class Gdi
 	public const Int32 R2_MERGEPEN			= 15;
 	public const Int32 R2_WHITE				= 16;
 	public const Int32 R2_LAST				= 16;
-
 	public const UInt32 SRCCOPY				= 0x00CC0020;
 	public const UInt32 SRCPAINT			= 0x00EE0086;
 	public const UInt32 SRCAND				= 0x008800C6;
@@ -109,7 +97,6 @@ sealed class Gdi
 	public const UInt32 DSTINVERT			= 0x00550009;
 	public const UInt32 BLACKNESS			= 0x00000042;
 	public const UInt32 WHITENESS			= 0x00FF0062;
-
 	public const Int32 WHITE_BRUSH			= 0;
 	public const Int32 LTGRAY_BRUSH			= 1;
 	public const Int32 GRAY_BRUSH			= 2;
@@ -127,7 +114,6 @@ sealed class Gdi
 	public const Int32 DEVICE_DEFAULT_FONT	= 14;
 	public const Int32 DEFAULT_PALETTE		= 15;
 	public const Int32 SYSTEM_FIXED_FONT	= 16;
-
 	public static UInt32 RGB(Byte r, Byte g, Byte b)
 	{
 		UInt32 color = r;
@@ -135,7 +121,6 @@ sealed class Gdi
 		color |= (UInt32)((Int32)b << 16);
 		return color;
 	}
-
 	[DllImport("GDI32.DLL")]
 	public static extern Boolean TextOut(IntPtr hdc, Int32 x, Int32 y, String text, Int32 count);
 	[DllImport("GDI32.DLL")]

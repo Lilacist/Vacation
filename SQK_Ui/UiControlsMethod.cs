@@ -6,14 +6,12 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-
 public class UiControlsMethod
 {
     static public string GetMd5Str16(string ConvertString)
@@ -28,7 +26,6 @@ public class UiControlsMethod
         }
         catch { return null; }
     }
-
     static public string GetMd5Str32(string ConvertString)
     {
         try
@@ -46,7 +43,6 @@ public class UiControlsMethod
         }
         catch { return null; }
     }
-
     /// <summary>
     /// 透明 Input Box
     /// </summary>
@@ -59,7 +55,6 @@ public class UiControlsMethod
             BorderStyle = BorderStyle.None;
             ImeMode = ImeMode.On;
         }
-
         protected override CreateParams CreateParams
         {
             get
@@ -70,7 +65,6 @@ public class UiControlsMethod
             }
         }
     }
-    
     /// <summary>
     /// 双缓冲 panel
     /// </summary>
@@ -82,7 +76,6 @@ public class UiControlsMethod
             UpdateStyles();
         }
     }
-
     /// <summary>
     /// 双缓冲 pictureBox
     /// </summary>
@@ -94,59 +87,47 @@ public class UiControlsMethod
             UpdateStyles();
         }
     }
-
     /// <summary>
     /// 移动重绘 方法
     /// </summary>
     public abstract class ADraggableGDIObject
     {
         public abstract Rectangle Region { get; set; }
-
         public abstract bool IsDragging { get; set; }
-
         public abstract Point DraggingPoint { get; set; }
-
         public abstract void OnPaint(PaintEventArgs e);
-
     }
-
     public class Draggable : ADraggableGDIObject
     {
         private bool m_IsDragging;
         private Point m_DraggingPoint;
         private Rectangle m_Region;
         private Bitmap image;
-
         public Draggable(int startx, int starty, Bitmap _bmp)
         {
             image = _bmp.Clone(new Rectangle(0, 0, _bmp.Width, _bmp.Height), System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             m_Region = new Rectangle(startx, starty, image.Width, image.Height);
         }
-
         public override Rectangle Region
         {
             get { return m_Region; }
             set { m_Region = value; }
         }
-
         public override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawImage(image, m_Region);
         }
-
         public override bool IsDragging
         {
             get { return m_IsDragging; }
             set { m_IsDragging = value; }
         }
-
         public override Point DraggingPoint
         {
             get { return m_DraggingPoint; }
             set { m_DraggingPoint = value; }
         }
     }
-
     /// <summary>
     /// WebBrows 方法
     /// </summary>
@@ -159,7 +140,6 @@ public class UiControlsMethod
         {
             void Draw([MarshalAs(UnmanagedType.U4)] uint dwAspect, int lindex, IntPtr pvAspect, [In] IntPtr ptd, IntPtr hdcTargetDev, IntPtr hdcDraw, [MarshalAs(UnmanagedType.Struct)] ref RECT lprcBounds, [In] IntPtr lprcWBounds, IntPtr pfnContinue, [MarshalAs(UnmanagedType.U4)] uint dwContinue);
         }
-
         [StructLayout(LayoutKind.Sequential, Pack = 4)]
         struct RECT
         {
@@ -168,23 +148,18 @@ public class UiControlsMethod
             public int Right;
             public int Bottom;
         }
-
         public static void webBrowsToImage(object obj, Image destination, Color backgroundColor)
         {
             using (Graphics graphics = Graphics.FromImage(destination))
             {
                 IntPtr deviceContextHandle = IntPtr.Zero;
                 RECT rectangle = new RECT();
-
                 rectangle.Right = destination.Width;
                 rectangle.Bottom = destination.Height;
-
                 graphics.Clear(backgroundColor);
-
                 try
                 {
                     deviceContextHandle = graphics.GetHdc();
-
                     IViewObject viewObject = obj as IViewObject;
                     viewObject.Draw(1, -1, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, deviceContextHandle, ref rectangle, IntPtr.Zero, IntPtr.Zero, 0);
                 }
@@ -198,7 +173,6 @@ public class UiControlsMethod
             }
         }
     }
-
     /// <summary>
     ///  控件 方法
     /// </summary>
@@ -232,6 +206,5 @@ public class UiControlsMethod
             return bmp_clone;
         }
     }
-
 }
 

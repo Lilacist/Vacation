@@ -6,9 +6,7 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
 using System;
-
 public class Math3D
 {
     public class Point3D
@@ -16,43 +14,36 @@ public class Math3D
         public double X;
         public double Y;
         public double Z;
-
         public Point3D(int x, int y, int z)
         {
             X = x;
             Y = y;
             Z = 1; //no Depth
         }
-
         public Point3D(float x, float y, float z)
         {
             X = (double)x;
             Y = (double)y;
             Z = (double)z;
         }
-
         public Point3D(double x, double y, double z)
         {
             X = x;
             Y = y;
             Z = z;
         }
-
         public Point3D()
         {
         }
-
         public override string ToString()
         {
             return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
         }
     }
-
     public class Camera
     {
         public Point3D Position = new Point3D();
     }
-
     public static Point3D RotateX(Point3D point3D, double degrees)
     {
         double cDegrees = (Math.PI * degrees) / 180.0f;
@@ -62,7 +53,6 @@ public class Math3D
         double z = (point3D.Y * -sinDegrees) + (point3D.Z * cosDegrees);
         return new Point3D(point3D.X, y, z);
     }
-
     public static Point3D RotateY(Point3D point3D, double degrees)
     {
         double cDegrees = (Math.PI * degrees) / 180.0;
@@ -72,7 +62,6 @@ public class Math3D
         double z = (point3D.X * -sinDegrees) + (point3D.Z * cosDegrees);
         return new Point3D(x, point3D.Y, z);
     }
-
     public static Point3D RotateZ(Point3D point3D, double degrees)
     {
         double cDegrees = (Math.PI * degrees) / 180.0;
@@ -82,7 +71,6 @@ public class Math3D
         double y = (point3D.X * -sinDegrees) + (point3D.Y * cosDegrees);
         return new Point3D(x, y, point3D.Z);
     }
-
     public static Point3D Translate(Point3D points3D, Point3D oldOrigin, Point3D newOrigin)
     {
         Point3D difference = new Point3D(newOrigin.X - oldOrigin.X, newOrigin.Y - oldOrigin.Y, newOrigin.Z - oldOrigin.Z);
@@ -91,7 +79,6 @@ public class Math3D
         points3D.Z += difference.Z;
         return points3D;
     }
-
     public static Point3D[] RotateX(Point3D[] points3D, double degrees)
     {
         for (int i = 0; i < points3D.Length; i++)
@@ -100,7 +87,6 @@ public class Math3D
         }
         return points3D;
     }
-
     public static Point3D[] RotateY(Point3D[] points3D, double degrees)
     {
         for (int i = 0; i < points3D.Length; i++)
@@ -109,7 +95,6 @@ public class Math3D
         }
         return points3D;
     }
-
     public static Point3D[] RotateZ(Point3D[] points3D, double degrees)
     {
         for (int i = 0; i < points3D.Length; i++)
@@ -118,7 +103,6 @@ public class Math3D
         }
         return points3D;
     }
-
     public static Point3D[] Translate(Point3D[] points3D, Point3D oldOrigin, Point3D newOrigin)
     {
         for (int i = 0; i < points3D.Length; i++)
@@ -127,5 +111,4 @@ public class Math3D
         }
         return points3D;
     }
-
 }

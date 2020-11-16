@@ -6,17 +6,13 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-
 public class ImageData : IDisposable
 {
     private byte[,] _red, _green, _blue, _alpha;
     private bool _disposed = false;
-
     public byte[,] A
     {
         get { return _alpha; }
@@ -37,7 +33,6 @@ public class ImageData : IDisposable
         get { return _red; }
         set { _red = value; }
     }
-
     public ImageData Clone()
     {
         ImageData cb = new ImageData();
@@ -47,7 +42,6 @@ public class ImageData : IDisposable
         cb.R = (byte[,])_red.Clone();
         return cb;
     }
-
     public void FromBitmap(Bitmap srcBmp)
     {
         int w = srcBmp.Width;
@@ -81,7 +75,6 @@ public class ImageData : IDisposable
         }
         srcBmp.UnlockBits(bmpData);
     }
-
     public Bitmap ToBitmap()
     {
         int width = 0, height = 0;
@@ -128,7 +121,6 @@ public class ImageData : IDisposable
         bmp.UnlockBits(bmpData);
         return bmp;
     }
-
     private static bool checkArray(byte[,] array, int x, int y)
     {
         if (array == null) return false;
@@ -136,13 +128,11 @@ public class ImageData : IDisposable
             return true;
         else return false;
     }
-
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
     protected virtual void Dispose(bool disposing)
     {
         if (!_disposed)

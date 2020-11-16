@@ -14,7 +14,6 @@ using Oracle.ManagedDataAccess.Types;
 using System.Security.Cryptography.X509Certificates;
 using System;
 using System.Runtime.CompilerServices;
-
 namespace GBSJPickUpTool
 {
     class OracleHelper

@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SQLite;
 using System.Threading;
-
 namespace DistanceUpdateTool
 {
     class BaseDBController
@@ -95,9 +94,7 @@ namespace DistanceUpdateTool
                 CloseDB();
         }
         #endregion
-
         #region 保护接口
-        
         protected void BaseExecuteWithoutReturnValue(string sql)
         {
             try

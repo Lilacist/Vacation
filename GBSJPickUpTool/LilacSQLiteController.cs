@@ -10,7 +10,6 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Security.Permissions;
 using System.Data;
-
 namespace DistanceUpdateTool
 {
     //打开、关闭。获取状态、执行更改
@@ -23,8 +22,6 @@ namespace DistanceUpdateTool
         private static SQLiteConnection m_SqlConnection;
         private bool ConnectionCLosed;
         #endregion
-
-
         #region 私有函数
         private void Lilac_CreateNewDatabase()
         {
@@ -56,8 +53,6 @@ namespace DistanceUpdateTool
             }
         }
         #endregion
-
-
         #region 构造函数
         public LilacSQLiteController(string dbName)
         {
@@ -92,8 +87,6 @@ namespace DistanceUpdateTool
             }
         }
         #endregion
-
-
         #region 公有接口
         public string GetCurrentDbName()
         {
@@ -106,11 +99,9 @@ namespace DistanceUpdateTool
                 _ = MessageBox.Show(err.Message);
                 return null;
             }
-            
         }
         public string GetCurrentDbPath()
         {
-            
             try
             {
                 return String.Format(BasePath + ItemDbName).ToString();

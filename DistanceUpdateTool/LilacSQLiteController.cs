@@ -11,7 +11,6 @@ using System.IO;
 using System.Security.Permissions;
 using System.Data;
 using System.Text.RegularExpressions;
-
 namespace DistanceUpdateTool
 {
     //打开、关闭。获取状态、执行更改
@@ -24,8 +23,6 @@ namespace DistanceUpdateTool
         private static SQLiteConnection m_SqlConnection;
         private bool ConnectionCLosed;
         #endregion
-
-
         #region 私有函数
         private void Lilac_CreateNewDatabase()
         {
@@ -57,8 +54,6 @@ namespace DistanceUpdateTool
             }
         }
         #endregion
-
-
         #region 构造函数
         public LilacSQLiteController(string dbName)
         {
@@ -93,7 +88,6 @@ namespace DistanceUpdateTool
             }
         }
         #endregion
-
         #region AttachParameters(SQLiteCommand,commandText,object[] paramList)
         /// <summary>
         /// 增加参数到命令（自动判断类型）
@@ -105,7 +99,6 @@ namespace DistanceUpdateTool
         private static SQLiteParameterCollection AttachParameters(SQLiteCommand cmd, string commandText, params object[] paramList)
         {
             if (paramList == null || paramList.Length == 0) return null;
-
             SQLiteParameterCollection coll = cmd.Parameters;
             string parmString = commandText.Substring(commandText.IndexOf("@"));
             // pre-process the string so always at least 1 space after a comma.
@@ -121,18 +114,15 @@ namespace DistanceUpdateTool
                 paramNames[i] = m.Value;
                 i++;
             }
-
             // now let's type the parameters
             int j = 0;
             Type t = null;
             foreach (object o in paramList)
             {
                 t = o.GetType();
-
                 SQLiteParameter parm = new SQLiteParameter();
                 switch (t.ToString())
                 {
-
                     case ("DBNull"):
                     case ("Char"):
                     case ("SByte"):
@@ -140,75 +130,61 @@ namespace DistanceUpdateTool
                     case ("UInt32"):
                     case ("UInt64"):
                         throw new SystemException("Invalid data type");
-
-
                     case ("System.String"):
                         parm.DbType = DbType.String;
                         parm.ParameterName = paramNames[j];
                         parm.Value = (string)paramList[j];
                         coll.Add(parm);
                         break;
-
                     case ("System.Byte[]"):
                         parm.DbType = DbType.Binary;
                         parm.ParameterName = paramNames[j];
                         parm.Value = (byte[])paramList[j];
                         coll.Add(parm);
                         break;
-
                     case ("System.Int32"):
                         parm.DbType = DbType.Int32;
                         parm.ParameterName = paramNames[j];
                         parm.Value = (int)paramList[j];
                         coll.Add(parm);
                         break;
-
                     case ("System.Boolean"):
                         parm.DbType = DbType.Boolean;
                         parm.ParameterName = paramNames[j];
                         parm.Value = (bool)paramList[j];
                         coll.Add(parm);
                         break;
-
                     case ("System.DateTime"):
                         parm.DbType = DbType.DateTime;
                         parm.ParameterName = paramNames[j];
                         parm.Value = Convert.ToDateTime(paramList[j]);
                         coll.Add(parm);
                         break;
-
                     case ("System.Double"):
                         parm.DbType = DbType.Double;
                         parm.ParameterName = paramNames[j];
                         parm.Value = Convert.ToDouble(paramList[j]);
                         coll.Add(parm);
                         break;
-
                     case ("System.Decimal"):
                         parm.DbType = DbType.Decimal;
                         parm.ParameterName = paramNames[j];
                         parm.Value = Convert.ToDecimal(paramList[j]);
                         break;
-
                     case ("System.Guid"):
                         parm.DbType = DbType.Guid;
                         parm.ParameterName = paramNames[j];
                         parm.Value = (System.Guid)(paramList[j]);
                         break;
-
                     case ("System.Object"):
-
                         parm.DbType = DbType.Object;
                         parm.ParameterName = paramNames[j];
                         parm.Value = paramList[j];
                         coll.Add(parm);
                         break;
-
                     default:
                         throw new SystemException("Value is of unknown data type");
-
                 } // end switch
-
                 j++;
             }
             return coll;
@@ -226,11 +202,9 @@ namespace DistanceUpdateTool
                 _ = MessageBox.Show(err.Message);
                 return null;
             }
-            
         }
         public string GetCurrentDbPath()
         {
-            
             try
             {
                 return String.Format(BasePath + ItemDbName).ToString();
@@ -326,7 +300,6 @@ namespace DistanceUpdateTool
             }
             return res;
         }
-
         ///调用方法
         public int ExecuteNonQuery(SQLiteTransaction transaction, string commandText, params object[] paramList)
         {

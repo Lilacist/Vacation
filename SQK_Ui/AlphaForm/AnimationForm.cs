@@ -6,13 +6,10 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-
 public class AnimationForm
 {
     public void shakeForm(Control _obj, int _range, int _number, int _speed)
@@ -27,7 +24,6 @@ public class AnimationForm
             Thread.Sleep(_speed);
         }
     }
-
     public static void rotationForm(AlphaForm _firstObj, AlphaForm _secondObj, int _first, int _second, int _x, int _y, int _width, int _height, double _transparency, int _speed, int _rotorType)
     {
         putAlphaForm _rotationForm = new putAlphaForm();
@@ -36,7 +32,6 @@ public class AnimationForm
         _rotationForm._getPutFormInfo(_secondObj);
         _rotationForm._putForm(_first, _second, _speed, _rotorType);
     }
-
     public static void fadingForm(AlphaForm _obj, Bitmap _bmp, double _transparency, int _speed)
     {
         Bitmap FadingBmp = UiControlsMethod.ControlMethods.getFormControlToBmp(_obj, _bmp);
@@ -55,7 +50,5 @@ public class AnimationForm
         } );
         fading.Start();
     }
-
-    
 }
 

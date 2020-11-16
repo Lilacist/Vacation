@@ -14,7 +14,6 @@ using MaterialSkin.Controls;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.IO.Compression;
-
 namespace Vacation
 {
     public partial class MainForm : MaterialForm
@@ -204,7 +203,6 @@ namespace Vacation
                 MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void button19_Click(object sender, EventArgs e)
         {
             bool pass = false;
@@ -252,7 +250,6 @@ namespace Vacation
                 MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void button18_Click(object sender, EventArgs e)
         {
             bool pass = false;
@@ -300,7 +297,6 @@ namespace Vacation
                 MessageBox.Show("文件已保存,所有文件导入完后记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void button21_Click(object sender, EventArgs e)
         {
             bool pass;
@@ -328,7 +324,6 @@ namespace Vacation
                 MessageBox.Show("备份文件已保存", "导出完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void button22_Click(object sender, EventArgs e)
         {
             bool pass = false;
@@ -370,7 +365,6 @@ namespace Vacation
                 MessageBox.Show("备份已还原,记得点击“更新数据”。", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         private void button23_Click(object sender, EventArgs e)
         {
             string savepath = Application.StartupPath + "\\DataBase";

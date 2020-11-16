@@ -6,21 +6,16 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
 public class UiTransparentRectMethod : UserControl
 {
-
     public enum ShapeBorderStyles
     {
         ShapeBSNone,
         ShapeBSFixedSingle,
     };
-
     private ShapeBorderStyles _borderStyle = ShapeBorderStyles.ShapeBSNone;
     private Color _backColor = Color.Black;
     private Color _borderColor = Color.White;
@@ -29,7 +24,6 @@ public class UiTransparentRectMethod : UserControl
     protected int pointX = 0;
     protected int pointY = 0;
     protected Rectangle iRect = new Rectangle();
-
     public UiTransparentRectMethod()
     {
         base.BackColor = Color.Transparent;
@@ -37,43 +31,36 @@ public class UiTransparentRectMethod : UserControl
         SetStyle(ControlStyles.Opaque, false);
         UpdateStyles();
     }
-
     public new Color BackColor
     {
         get { return _backColor; }
         set { _backColor = value; Invalidate(); }
     }
-
     public ShapeBorderStyles ShapeBorderStyle
     {
         get { return _borderStyle; }
         set { _borderStyle = value; this.Invalidate(); }
     }
-
     public Color BorderColor
     {
         get { return _borderColor; }
         set { _borderColor = value; Invalidate(); }
     }
-
     public int Opacity
     {
         get { return _opacity; }
         set { _opacity = value; this.Invalidate(); }
     }
-
     public int Radius
     {
         get { return _radius; }
         set { _radius = value; this.Invalidate(); }
     }
-
     public override Color ForeColor
     {
         get { return base.ForeColor; }
         set { base.ForeColor = value; this.Invalidate(); }
     }
-
     protected override void OnPaint(PaintEventArgs e)
     {
         SmoothingMode sm = e.Graphics.SmoothingMode;
@@ -82,7 +69,6 @@ public class UiTransparentRectMethod : UserControl
         DrawLabelBackground(e.Graphics);
         e.Graphics.SmoothingMode = sm;
     }
-
     private void DrawBorder(Graphics g)
     {
         Rectangle rect = this.ClientRectangle;
@@ -96,7 +82,6 @@ public class UiTransparentRectMethod : UserControl
             }
         }
     }
-
     private void DrawLabelBackground(Graphics g)
     {
         Rectangle rect = this.ClientRectangle;
@@ -113,7 +98,6 @@ public class UiTransparentRectMethod : UserControl
             }
         }
     }
-
     protected GraphicsPath GetPath(Rectangle rc, int r)
     {
         int x = rc.X, y = rc.Y, w = rc.Width, h = rc.Height;
@@ -133,9 +117,7 @@ public class UiTransparentRectMethod : UserControl
         {
             path.AddRectangle(rc);
         }
-
         return path;
     }
 }
-
 

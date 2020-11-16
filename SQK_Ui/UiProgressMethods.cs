@@ -6,17 +6,13 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System.Drawing;
 using System.Windows.Forms;
-
 public class UiProgressMethods
 {
     public int _width = 20;
     public int _maxNum = 20;
     public string progressValue ="0";
-
     private int progressType = 0;
     private bool showFlag = false;
     private int flagType = 0, _operationWidth;
@@ -27,12 +23,10 @@ public class UiProgressMethods
     private UiDrawTextMethod ud = new UiDrawTextMethod();
     private int[] m_set, m_flag;
     private Color txt_Color;
-
     public void InitializeProggress(Control _obj, int _type, Point _location, int _pwidth)
     {
         InitializeProggress(_obj, _type, _location, _pwidth, false, 0);
     }
-
     public void InitializeProggress (Control _obj, int _type, Point _location, int _pwidth,bool _showFgla, int _flagType)
     {
         progressType = _type;
@@ -40,7 +34,6 @@ public class UiProgressMethods
         showFlag = _showFgla;
         flagType = _flagType;
         Bitmap bmp_bar, bmp_gress;
-
         /*
          m_set[0] = bar left cut image width;    m_set[1] = bar middle cut image width;    m_set[2] = bar right cut image width;
          m_set[3] = gress left cut image width; m_set[4] = gress middle cut image width; m_set[5] = gress right cut image width;
@@ -114,21 +107,18 @@ public class UiProgressMethods
                 bmp_gress = SQK_Ui.Progress.ProgressResource.progress13;
                 m_set = new int[9] { 5, 1, 5, 2, 1, 2, 2, 2, 2 };
                 break;
-
             default:
                 bmp_bar = SQK_Ui.Progress.ProgressResource.pbar1;
                 bmp_gress = SQK_Ui.Progress.ProgressResource.progress1;
                 m_set = new int[9] { 20,1,20,  10,1,10,  7,7,   7 };
                 break;
         }
-
         Bitmap bar_Left = bmp_bar.Clone(new Rectangle(0, 0, m_set[0], bmp_bar.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         Bitmap bar_Mid = bmp_bar.Clone(new Rectangle(m_set[0], 0, 1, bmp_bar.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         Bitmap bar_Right = bmp_bar.Clone(new Rectangle(bmp_bar.Width - m_set[2], 0, m_set[2], bmp_bar.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         gress_Left = bmp_gress.Clone(new Rectangle(0,0,m_set[3], bmp_gress.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         gress_Mid = bmp_gress.Clone(new Rectangle(m_set[3], 0, 1, bmp_gress.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         gress_Right = bmp_gress.Clone(new Rectangle(bmp_gress.Width-m_set[5], 0, m_set[5], bmp_gress.Height), System.Drawing.Imaging.PixelFormat.DontCare);
-
         bmp_progress = new Bitmap(_pwidth, bmp_bar.Height);
         Graphics bitmapProgress = Graphics.FromImage(bmp_progress);
         bitmapProgress.DrawImage(bar_Left, 0, 0, m_set[0], bmp_bar.Height);
@@ -137,14 +127,11 @@ public class UiProgressMethods
             bitmapProgress.DrawImage(bar_Mid, m_set[0] + i, 0, 1, bmp_bar.Height);
         }
         bitmapProgress.DrawImage(bar_Right, _pwidth- m_set[2], 0, m_set[2], bmp_bar.Height);
-
         _progress.BackColor = Color.Transparent;
         _progress.Size = new Size(_pwidth, bmp_bar.Height);
         _progress.Location = _location;
         _progress.Image = bmp_progress;
-
         _operationWidth = _pwidth - m_set[6] - m_set[7] - m_set[3] - m_set[5];
-        
         if (_showFgla)
         {
             /*
@@ -177,7 +164,6 @@ public class UiProgressMethods
                     m_flag = new int[3] { 36, 7, 7 };
                     txt_Color = Color.Black;
                     break;
-
                 default:
                     _bmpFlag = SQK_Ui.Tooltips.TipsResource.tips_1;
                     m_flag = new int[4] { 28, 0, 6, 3 };
@@ -192,11 +178,8 @@ public class UiProgressMethods
         _setProgress(0);
         _obj.Controls.Add(_progress);
     }
-
-
     public void _setProgress(int _skip)
     {
-        
         if (_skip == _maxNum)
         {
             _skip = _operationWidth;
@@ -206,21 +189,16 @@ public class UiProgressMethods
             var t = (decimal)_operationWidth / _maxNum;
             _skip = (int)(_skip * t);
         }
-      
-
         Bitmap _progressImage = bmp_progress.Clone(new Rectangle(0, 0, bmp_progress.Width, bmp_progress.Height), System.Drawing.Imaging.PixelFormat.DontCare);
         Graphics _gblock = Graphics.FromImage(_progressImage);
-
         _gblock.DrawImage(gress_Left, m_set[6], m_set[8], gress_Left.Width, gress_Left.Height);
         for (int i = 0; i < _skip; i++)
         {
             _gblock.DrawImage(gress_Mid, m_set[6] + m_set[3] + i, m_set[8], 1, gress_Mid.Height);
         }
         _gblock.DrawImage(gress_Right, m_set[6] + m_set[3] + _skip, m_set[8], m_set[5], gress_Right.Height);
-
         _progress.Image = _progressImage;
         _progress.Update();
-        
         if (showFlag)
         {
             Bitmap bmp_flag = new Bitmap(_progressFlag.Width, _progressFlag.Height);

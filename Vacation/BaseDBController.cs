@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SQLite;
 using System.Threading;
-
 namespace Vacation
 {
     class BaseDBController
@@ -95,9 +94,7 @@ namespace Vacation
                 CloseDB();
         }
         #endregion
-
         #region 保护接口
-        
         protected void BaseExecuteWithoutReturnValue(string sql)
         {
             try

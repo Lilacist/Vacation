@@ -20,7 +20,6 @@ namespace Vacation
             comboBox1.SelectedItem = "湖北";
             comboBox2.SelectedItem = "广水";
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -169,12 +168,10 @@ namespace Vacation
                 default:break;
             }
         }
-
         private void DistanceForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
         }
-
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox4.SelectedItem)
@@ -318,7 +315,6 @@ namespace Vacation
                 default: break;
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             distanceclr = new DBControllerSet.DistanceDBController();

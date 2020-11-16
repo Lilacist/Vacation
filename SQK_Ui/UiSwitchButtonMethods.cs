@@ -6,15 +6,12 @@
           QQ：2452243110
 最后更新：2018.2.23
 -----------------------------------------------*/
-
-
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Threading.Tasks;
-
 public class UiSwitchButtonMethods
 {
     public int switch_flag;
@@ -31,7 +28,6 @@ public class UiSwitchButtonMethods
     private UiControlsMethod.PictureBoxEx picSwitch;
     private Bitmap firstBmp, secondBmp;
     private Point _origin;
-
     public void InitializeSwitchEffect(Control _obj, Point origin, int _flag, int switchType, int speed, MouseEventHandler _click)
     {
         firstBmp = SQK_Ui.switchButton.switchResource.switch1_a;
@@ -39,7 +35,6 @@ public class UiSwitchButtonMethods
         _origin = origin;
         _speed = speed;
         switch_flag = _flag;
-
         switch (switchType)
         {
             case 0:
@@ -59,7 +54,6 @@ public class UiSwitchButtonMethods
         }
         _w = firstBmp.Width;
         _h = firstBmp.Height;
-
         Point lc = new Point(0, 0);
         cube = new Cube(_w,_h, 1);
         for (int i = 0; i < 90; i++)
@@ -88,14 +82,11 @@ public class UiSwitchButtonMethods
             if (i < 45) filters[i].Bitmap = firstBmp;
             else filters[i].Bitmap = secondBmp;
         }
-
         Parallel.For(0, 90, (i) => { updateImage(i); });
-
         switchPanel = new UiControlsMethod.PanelEx();
         switchPanel.Size = new Size(_w,_h);
         switchPanel.Location = origin;
         switchPanel.BackColor = Color.Transparent;
-        
         picSwitch = new UiControlsMethod.PictureBoxEx();
         picSwitch.BackColor = Color.Transparent;
         picSwitch.Size = new Size(_w,_h);
@@ -105,21 +96,16 @@ public class UiSwitchButtonMethods
         picSwitch.Click += new EventHandler(picSwitch_Click);
         picSwitch.MouseClick += _click;
         picSwitch.Cursor = Cursors.Hand;
-
         switchPanel.Controls.Add(picSwitch);
-        
         _obj.Controls.Add(switchPanel);
     }
-
     [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod")]
     public static extern uint _BeginPeriod(uint uMilliseconds);
     [DllImport("winmm.dll", EntryPoint = "timeEndPeriod")]
     public static extern uint _EndPeriod(uint uMilliseconds);
-
     private void picSwitch_Click(object sender, EventArgs e)
     {
         _BeginPeriod((uint)_speed);
-
         if (switch_flag==0)
         {
             for (int i=0;i<90;i++)
@@ -148,16 +134,13 @@ public class UiSwitchButtonMethods
             picSwitch.Image = firstBmp;
             switch_flag = 0;
         }
-
         _EndPeriod((uint)_speed);
     }
-
     private void getimg(object num)
     {
         updateImage((int)num);
         begin[(int)num] = true;
     }
-
     private void updateImage(int num)
     {
         if ((corners[num, 0].X - corners[num, 1].X) <= 1)
